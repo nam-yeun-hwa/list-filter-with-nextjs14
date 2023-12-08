@@ -28,13 +28,13 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
   - 사용법은 [다이나믹라우팅 이름] 으로 폴더명으로 넣어준다.
   - 예) [username]/status/[id] 라는 주소는 아래와 같이 경로로 만들어 준다.
  
-  <img src="https://private-user-images.githubusercontent.com/138950568/289009775-b414bbc8-b79e-4af5-8e3a-79034ff0857d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMjQzMjMsIm5iZiI6MTcwMjAyNDAyMywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDA5Nzc1LWI0MTRiYmM4LWI3OWUtNGFmNS04ZTNhLTc5MDM0ZmYwODU3ZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQwODI3MDNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xZTA3ZWU4YWE4ZDU1ZDM5Mzc4NjYxNzE2Mjc2ZmJmZGUyZDQxZjVjYmM4NjNlOWJjM2ZjNmIwYWJjYjFkNTQ4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.v97zMcv6pKhDD7XlhSNP3jHYdFYDm4dnYJucR0mdPuw"/>
+  <img src="https://private-user-images.githubusercontent.com/138950568/289009775-b414bbc8-b79e-4af5-8e3a-79034ff0857d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMjQzMjMsIm5iZiI6MTcwMjAyNDAyMywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDA5Nzc1LWI0MTRiYmM4LWI3OWUtNGFmNS04ZTNhLTc5MDM0ZmYwODU3ZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQwODI3MDNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xZTA3ZWU4YWE4ZDU1ZDM5Mzc4NjYxNzE2Mjc2ZmJmZGUyZDQxZjVjYmM4NjNlOWJjM2ZjNmIwYWJjYjFkNTQ4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.v97zMcv6pKhDD7XlhSNP3jHYdFYDm4dnYJucR0mdPuw" width="250px" height="auto"/>
 
   각각 username,id값으로 들어온 주소에 대해 page.tsx로 렌더링 된다.
 
 - app의 경로에 해당하지 않는 페이지는 not-found.tsx로 대응하여 페이지를 적용해 줄수 있다. 폴더 경로는 src에 위치하면 된다. 
 
-<img src="https://private-user-images.githubusercontent.com/138950568/289059983-b0147a5f-eb00-4821-90ed-cc692a397a98.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMzcyMjcsIm5iZiI6MTcwMjAzNjkyNywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDU5OTgzLWIwMTQ3YTVmLWViMDAtNDgyMS05MGVkLWNjNjkyYTM5N2E5OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQxMjAyMDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02MmY4NmI5YzhmMDRlZjAxMjNkMzNiNTAwYzZiYmZmNGQwNjMwODdlNjJiM2VlNWY2ZmQxMGFiZTM1M2U4ZjBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.JBbmizzo9jKisRvmjbEIM8Gna740yf8thYRmmODuDLo"/>
+<img src="https://private-user-images.githubusercontent.com/138950568/289059983-b0147a5f-eb00-4821-90ed-cc692a397a98.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMzcyMjcsIm5iZiI6MTcwMjAzNjkyNywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDU5OTgzLWIwMTQ3YTVmLWViMDAtNDgyMS05MGVkLWNjNjkyYTM5N2E5OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQxMjAyMDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02MmY4NmI5YzhmMDRlZjAxMjNkMzNiNTAwYzZiYmZmNGQwNjMwODdlNjJiM2VlNWY2ZmQxMGFiZTM1M2U4ZjBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.JBbmizzo9jKisRvmjbEIM8Gna740yf8thYRmmODuDLo" width="250px" height="auto"/>
 
 - 상태에 따른 폴더 이름으로 카테고리 나누기
 (실제 주소에는 관여하지 않는다.)
@@ -43,3 +43,37 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
 
 레이아웃이 적용되고 안되고 등으로 폴더 경로 페이지를 나눠줄 수 있고 
 beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 줄수도 있다.
+
+
+# 그외에 사항들 체크 사항
+
+- dvw와 dvh의 단위를 사용하여 css로 페이지의 반응형 넓이 높이를 넣어준다. 이점은 페이지에서 주소창이 사라지거나 생기는 경우에 화면에서 깨지지 않고 모두 대응이 가능하다.
+- next.js에서는 a태그 대신 Link 태그를 이용한다. (a태그는 클릭시 페이지가 새로 고침 되는 코딩을 해서는 안된다.)
+- redirect(라우트경로) 기능이 next13버전에서 추가되었다. import {redirect} from "next/navigation";
+- <Image/>를 next에서 지원해 준다. <Image/>는 next에서 알아서 이미지최적화를 해준다. 이미지 경로는 import Logo from "public 폴더 안에 이미지 경로"로 사용한다.
+
+## next13에서 추가된 라우트 기능
+### Parallel Route <br/>
+  page.tsx 두개를 동시에 보여주고 싶을때 사용한다. (기존 페이지를 배경으로 두고 모달을 새루운 경로로 띄울때 사용했다.) <br/>
+  아래처럼 page.tsx와 @modal 루트경로가 같아야 한다. <br/>
+  
+  <img src="https://private-user-images.githubusercontent.com/138950568/289069489-b429257e-17e4-446f-93b4-6857e8ccb62e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMzk2NzAsIm5iZiI6MTcwMjAzOTM3MCwicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDY5NDg5LWI0MjkyNTdlLTE3ZTQtNDQ2Zi05M2I0LTY4NTdlOGNjYjYyZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQxMjQyNTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iYTUzYjE4NzE2YTFkYWMwZDM4MTQzZWJkYzU3Zjk5MmY4YWEwMjA5OGFkOWQyNjU3N2MzZWEyMmE0MTZmNDUxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.GDVS1Md9MrEl-P1lmhW9ARtDQP4QWD4a1VmXM0HTDkY" width="250px" height="auto"/>
+  
+  그리고 layout.tsx에 modal을 props로 받아주어야 한다.
+  
+  ```shell
+  export default function layout({children, modal}){
+    retun(
+          <>
+            {childrend}
+            {modal}
+          <>
+        )
+  }
+```
+layout.tsx에서 page.tsx는 children으로 modal은 modal로 렌더링 된다.
+
+
+### Interception Routes <br/>
+
+
