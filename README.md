@@ -20,10 +20,18 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
 
 
 
-# 폴더 설명
+# src 폴더 설명
+- layout.tsx : 상위 header, bottom등 공통으로 위치하는 컴포넌트들을 배치해 준다.
+  - 페이지 내부 app에 들어있는 페이지 안에서는 따로 layout.tsx를 생성하여 사용하면 페이지당 공통 레이아웃이 가능하다.
 - app : 주소와 관련 있는 파일들이 위치한다.
-  - app 폴더 안에서 다이나믹 라우팅(slug)를 지원해 준다. 
+  - app 폴더 안에서 다이나믹 라우팅(slug)를 지원해 준다. </br>
   - 사용법은 [다이나믹라우팅 이름] 으로 폴더명으로 넣어준다.
-  - 예) [id]
+  - 예) [username]/status/[id] 라는 주소는 아래와 같이 경로로 만들어 준다.
+ 
+  <img src="https://private-user-images.githubusercontent.com/138950568/289009775-b414bbc8-b79e-4af5-8e3a-79034ff0857d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMjQzMjMsIm5iZiI6MTcwMjAyNDAyMywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDA5Nzc1LWI0MTRiYmM4LWI3OWUtNGFmNS04ZTNhLTc5MDM0ZmYwODU3ZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQwODI3MDNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xZTA3ZWU4YWE4ZDU1ZDM5Mzc4NjYxNzE2Mjc2ZmJmZGUyZDQxZjVjYmM4NjNlOWJjM2ZjNmIwYWJjYjFkNTQ4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.v97zMcv6pKhDD7XlhSNP3jHYdFYDm4dnYJucR0mdPuw"/>
+
+  각각 username,id값으로 들어온 주소에 대해 page.tsx로 렌더링 된다.
+
+- app의 경로에 해당하지 않는 페이지는 not-found.tsx로 대응하여 페이지를 적용해 줄수 있다. 폴더 경로는 src에 위치하면 된다. 
 
 
