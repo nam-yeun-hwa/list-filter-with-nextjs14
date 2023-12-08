@@ -18,6 +18,7 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
 react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으로 사용합니다. </br>
 서버 컴포넌트를 설명 하자면 넥스트 서버에서 리액트를 미리 렌더링해서 프론트 또는 브라우저로 완성된 HTML를 미리 보내줍니다. 사용자의 브라우저에서 했던 일들을 넥스트 서버에서 처리하기 떄문에 넥스트 서버의 부담이 늘어 났고 그 부담을 줄이기 위해 넥스트 서버에서는 적극적으로 캐싱을 활용하여 부담을 줄이도록 하였습니다. 예전에 Pages Router를 사용했을때 각각의 페이지에서 캐싱 기능을 구현하였다면 App Router에서는 캐싱등의 기능을 넥스트 서버에서 대신하여 처리해 줍니다.
 
+예) page.tsx, layout.tsx
 
 
 # src 폴더 설명
@@ -57,7 +58,7 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
   page.tsx 두개를 동시에 보여주고 싶을때 사용한다. (기존 페이지를 배경으로 두고 모달을 새루운 경로로 띄울때 사용했다.) <br/>
   아래처럼 page.tsx와 @modal 루트경로가 같아야 한다. <br/>
   
-  <img src="https://private-user-images.githubusercontent.com/138950568/289069489-b429257e-17e4-446f-93b4-6857e8ccb62e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMzk2NzAsIm5iZiI6MTcwMjAzOTM3MCwicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDY5NDg5LWI0MjkyNTdlLTE3ZTQtNDQ2Zi05M2I0LTY4NTdlOGNjYjYyZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQxMjQyNTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iYTUzYjE4NzE2YTFkYWMwZDM4MTQzZWJkYzU3Zjk5MmY4YWEwMjA5OGFkOWQyNjU3N2MzZWEyMmE0MTZmNDUxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.GDVS1Md9MrEl-P1lmhW9ARtDQP4QWD4a1VmXM0HTDkY" width="250px" height="auto"/>
+  <img src="https://private-user-images.githubusercontent.com/138950568/289075554-2e3dc802-f9e8-4092-aaac-b3b7a1ed6498.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwNDE0MTIsIm5iZiI6MTcwMjA0MTExMiwicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDc1NTU0LTJlM2RjODAyLWY5ZTgtNDA5Mi1hYWFjLWIzYjdhMWVkNjQ5OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQxMzExNTJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wMjBjNDcwZDlkOTRlOTViYzk3OTE5MWE5ZDNmNTdlODcyYzYzZjVlN2VhNTQ0N2YxZWY3ZTEwMjIwYWQzNjBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.nIcKuYk2VoEDbPv5Ok0HDohEnqHU9DOId3fR4f08aaU" width="250px" height="auto"/>
   
   그리고 layout.tsx에 modal을 props로 받아주어야 한다.
   
@@ -72,7 +73,13 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
   }
 ```
 layout.tsx에서 page.tsx는 children으로 modal은 modal로 렌더링 된다.
+@madal폴더에도 page.tsx가 필요한데 넣을 내용이 없을 경우에는 default.tsx를 추가 해주어야 오류가 뜨지 않는다. 
 
+## 서버 컴포넌트에서는 useState, useEffect등을 사용할 수 없다. 
+
+page.tsx, layout.tsx 등은 모두 서버 컴포넌트이기 때문에 화면에 렌더링 된후에 사용하는 useState나 useEffect를 사용할 수 없다. <br/>
+이런 경우에는 서버 컴포넌트를 클라이언트 컴포넌트도 변경 해주어야 한다. <br/>
+클라이언트 컴포넌트로 변경하는 방법은 page.tsx나 layout.tsx 상단에 "use client"; 를 추가해 주면 된다. <br/>
 
 ### Interception Routes <br/>
 
