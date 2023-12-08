@@ -34,9 +34,9 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
 
 - app의 경로에 해당하지 않는 페이지는 not-found.tsx로 대응하여 페이지를 적용해 줄수 있다. 폴더 경로는 src에 위치하면 된다. 
 
-<img/>
+<img src="https://private-user-images.githubusercontent.com/138950568/289059983-b0147a5f-eb00-4821-90ed-cc692a397a98.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMzcyMjcsIm5iZiI6MTcwMjAzNjkyNywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDU5OTgzLWIwMTQ3YTVmLWViMDAtNDgyMS05MGVkLWNjNjkyYTM5N2E5OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQxMjAyMDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02MmY4NmI5YzhmMDRlZjAxMjNkMzNiNTAwYzZiYmZmNGQwNjMwODdlNjJiM2VlNWY2ZmQxMGFiZTM1M2U4ZjBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.JBbmizzo9jKisRvmjbEIM8Gna740yf8thYRmmODuDLo"/>
 
-상태에 따른 폴더 이름으로 카테고리 나누기
+- 상태에 따른 폴더 이름으로 카테고리 나누기
 (실제 주소에는 관여하지 않는다.)
 (beforelogin)
 (afterlogin)
