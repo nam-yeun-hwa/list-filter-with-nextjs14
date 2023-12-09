@@ -50,7 +50,8 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
 
 - dvw와 dvh의 단위를 사용하여 css로 페이지의 반응형 넓이 높이를 넣어준다. 이점은 페이지에서 주소창이 사라지거나 생기는 경우에 화면에서 깨지지 않고 모두 대응이 가능하다.
 - next.js에서는 a태그 대신 Link 태그를 이용한다. (a태그는 클릭시 페이지가 새로 고침 되는 코딩을 해서는 안된다.)
-- redirect(라우트경로) 기능이 next13버전에서 추가되었다. import {redirect} from "next/navigation";
+- 서버컴포넌트 리다이렉트 > redirect(라우트경로) 기능이 next13버전에서 추가되었다. 서버 컴포넌트에서 redirect 시켜줄 수 있다. import {redirect} from "next/navigation";
+- 클라이언트에서 리다이렉트 > const router = useRouter(); router.replace('라우터 경로'); 해주면 클라이언트 컴포넌트에서 리다이렉트 시켜줄수 있다.
 - <Image/>를 next에서 지원해 준다. <Image/>는 next에서 알아서 이미지최적화를 해준다. 이미지 경로는 import Logo from "public 폴더 안에 이미지 경로"로 사용한다.
 
 ## next13에서 추가된 라우트 기능
