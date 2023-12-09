@@ -37,7 +37,7 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
 
 <img src="https://private-user-images.githubusercontent.com/138950568/289059983-b0147a5f-eb00-4821-90ed-cc692a397a98.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMzcyMjcsIm5iZiI6MTcwMjAzNjkyNywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDU5OTgzLWIwMTQ3YTVmLWViMDAtNDgyMS05MGVkLWNjNjkyYTM5N2E5OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQxMjAyMDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02MmY4NmI5YzhmMDRlZjAxMjNkMzNiNTAwYzZiYmZmNGQwNjMwODdlNjJiM2VlNWY2ZmQxMGFiZTM1M2U4ZjBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.JBbmizzo9jKisRvmjbEIM8Gna740yf8thYRmmODuDLo" width="250px" height="auto"/>
 
-- 상태에 따른 폴더 이름으로 카테고리 나누기
+- 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 **그룹폴더**
 (실제 주소에는 관여하지 않는다.)
 (beforelogin)
 (afterlogin)
@@ -75,12 +75,35 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
 layout.tsx에서 page.tsx는 children으로 modal은 modal로 렌더링 된다.
 @madal폴더에도 page.tsx가 필요한데 넣을 내용이 없을 경우에는 default.tsx를 추가 해주어야 오류가 뜨지 않는다. 
 
-## 서버 컴포넌트에서는 useState, useEffect등을 사용할 수 없다. 
+### 서버 컴포넌트에서는 useState, useEffect등을 사용할 수 없다. 
 
 page.tsx, layout.tsx 등은 모두 서버 컴포넌트이기 때문에 화면에 렌더링 된후에 사용하는 useState나 useEffect를 사용할 수 없다. <br/>
 이런 경우에는 서버 컴포넌트를 클라이언트 컴포넌트도 변경 해주어야 한다. <br/>
 클라이언트 컴포넌트로 변경하는 방법은 page.tsx나 layout.tsx 상단에 "use client"; 를 추가해 주면 된다. <br/>
 
 ### Interception Routes <br/>
+- 서로 주소가 다른 page.tsx를 띄울수 있게 해준다.
+- layout.tsx 에서 @modal이하 page.tsx는 @modal에서 뜨고 나머지 page.tsx는 children에서 뜨게 해준다. </br></br>
+방법은 parallel 라우트로 @modal 폴더를 두고 내부에 (..)i 로 폴더를 구성해주면 원래 주소인 /i/flow/login/page.tsx 가 @modal/(..)i/flow/login으로 interceptor 결국 i/flow/login/경로에는 @modal의 page.tsx 화면이 함께 화면에 보이게 된다. </br>
+i/flow/login/page.tsx는 화면대신 @modal/(..)i/flow/login/page.tsx가 화면에 보인다.</br>
+
+  <img src="https://private-user-images.githubusercontent.com/138950568/289274910-ef7e0bb8-8d08-43cc-830b-d3041408f5d6.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIxMjk2MDksIm5iZiI6MTcwMjEyOTMwOSwicGF0aCI6Ii8xMzg5NTA1NjgvMjg5Mjc0OTEwLWVmN2UwYmI4LThkMDgtNDNjYy04MzBiLWQzMDQxNDA4ZjVkNi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOVQxMzQxNDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZTI3ZGZiYjU3MWQwMTIwNTQ0ZDY0MTcxMDA2ZDY5MzcwZWZiYmMzYjlkYWEyNTgwOTA4NjAwN2I3ODIwZmY2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.EtiPcIIvwdRQEwFpjyy0EKBUHXfF4-q5urRO5PqNt3I" width="250px" height="auto"/>
+
+따라서 parallel라우트와 intercepter 라우트를 함께 사용하면 페이를 배경으로 두고 새로운 페이지를 화면에 띄울 수 있다.
+
+- intercepter 되지 않은 상태의 i/flow/login/page.tsx는 interceptor된 상태의 페이지를 새로고침 하면 interceptor하지 않은 라우터로 렌더링 된다.
+  <img src="https://private-user-images.githubusercontent.com/138950568/289275627-e3cdd867-99ce-42b9-ac1e-39da3647fc5d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIxMzA1MTcsIm5iZiI6MTcwMjEzMDIxNywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5Mjc1NjI3LWUzY2RkODY3LTk5Y2UtNDJiOS1hYzFlLTM5ZGEzNjQ3ZmM1ZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOVQxMzU2NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00NGFlZmFlMjFkZGFjYjRjNDI1OWEyOTU4NTczNmUxZDBjZWNiN2MwNzBjNDdiNTE4MDVkMWUxNzIzMDhjNmU1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.uxDKxM8FlUVPdopsn66cZ1p-rnpfEv2eW5slYbYLmak" width="250px" height="auto"/>
+
+(beforeLogin) 폴더의 page.tsx의 링크 이동을 눌러 페이지가 지동할 경우에는 interceptor된 @modal/(..)i/flow/login/page.tsx으로 뜨고 직접 /i/flow/login/ 주소를 입력하거나 interceptor된 상태에서 새로고침을 하면 interceptor되지 않은 원 /i/flow/login/page.tsx 페이지가 화면에 보인다.
+
+
+## private 폴더 _component 
+app폴더 하위 (beforeLogin)폴더 내부에 _component폴더를 사용하여 내부에 컴포넌트를 만들면 실제 주소에는 관여하지 않고 공통되는 페이지를 화면에 보여 줄수 있다. 
+@modal/(..)i/flow/login/page.tsx 와 i/flow/login/page.tsx는 결국 같은 내용을 화면에 렌더링 하는데 이럴때는 같은 (beforeLogin)을 두고 _component를 두어 각 페이지에서 하나의 컴포넌트를 import하여 사용하면 된다.
+결국 실제 라우터에 관여 하지 않는 폴더는 (폴더이름), _component 의 두가지 경우가 있다.
+
+
+
+  
 
 
