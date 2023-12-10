@@ -56,7 +56,7 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
 - 클라이언트에서 리다이렉트 > const router = useRouter(); router.replace('라우터 경로'); 해주면 클라이언트 컴포넌트에서 리다이렉트 시켜줄수 있다.
 - <Image/>를 next에서 지원해 준다. <Image/>는 next에서 알아서 이미지최적화를 해준다. 이미지 경로는 import Logo from "public 폴더 안에 이미지 경로"로 사용한다.
 
-## next13에서 추가된 라우트 기능
+# next13에서 추가된 라우트 기능
 ### Parallel Route <br/>
   page.tsx 두개를 동시에 보여주고 싶을때 사용한다. (기존 페이지를 배경으로 두고 모달을 새루운 경로로 띄울때 사용했다.) <br/>
   아래처럼 page.tsx와 @modal 루트경로가 같아야 한다. <br/>
@@ -108,7 +108,7 @@ app폴더 하위 (beforeLogin)폴더 내부에 _component폴더를 사용하여 
 결국 실제 라우터에 관여 하지 않는 폴더는 (폴더이름), _component 의 두가지 경우가 있다.
 
 
-## 참고 CSS 가운데 정렬 
+# 참고 CSS 가운데 정렬 
 
 - 하나의 컨테이너 안에 좌우 엘레멘트 두개를 두고 가운데 정렬 하는 경우 여백이 좌우 넓이가 알맞게 브라우저에 반응하는 CSS 
 
