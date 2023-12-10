@@ -108,6 +108,37 @@ app폴더 하위 (beforeLogin)폴더 내부에 _component폴더를 사용하여 
 결국 실제 라우터에 관여 하지 않는 폴더는 (폴더이름), _component 의 두가지 경우가 있다.
 
 
+## 참고 CSS 가운데 정렬 
+
+
+<img src="https://private-user-images.githubusercontent.com/138950568/289355427-1892a86a-f051-4116-ae95-90141577d9d7.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIyMDg4MzAsIm5iZiI6MTcwMjIwODUzMCwicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MzU1NDI3LTE4OTJhODZhLWYwNTEtNDExNi1hZTk1LTkwMTQxNTc3ZDlkNy5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIxMFQxMTQyMTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jMmQ0ZTU4N2I5MmE1MDI5Y2UwNmU3Yjg0NGNhM2FlNGYwYmQ5MzYwZmQ2NzFlNGIxY2VkNjBlNDZlZWQ5NDY4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.7txnnZUq09__sffqLpDejFVRah6dsPUVMTWoJNr5AB8"/>
+
+<img src="https://private-user-images.githubusercontent.com/138950568/289354666-1feb979a-326a-4781-8040-2230b047b9e0.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIyMDgzMTksIm5iZiI6MTcwMjIwODAxOSwicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MzU0NjY2LTFmZWI5NzlhLTMyNmEtNDc4MS04MDQwLTIyMzBiMDQ3YjllMC5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIxMFQxMTMzMzlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNTkyYjZjNzFjNWUwNWYwM2Y0MDQ2OTQ3NTBmNjY3YzhkODhkMDNlNDg3YzhhYmQ0YWNjYTJkNjkxYTVjMDZjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.FZw47_sElKVdwx2AcwKZ3ikKgIyAvuMvGZITOj94JWk"/>
+
+```shell
+
+.container{
+  display:flex;
+  align-items:strech;
+}
+
+.left-section-wrapper{
+  display:flex;
+  align-items:flex-end;
+  flex-direction:column;
+  flex-grow:1
+}
+
+.right-section-wrapper{
+  display:flex;
+  align-items:flex-start;
+  flex-direction:column;
+  flex-grow:1
+}
+
+```
+
+
 
   
 
