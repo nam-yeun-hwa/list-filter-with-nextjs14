@@ -29,13 +29,15 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
   - 사용법은 [다이나믹라우팅 이름] 으로 폴더명으로 넣어준다.
   - 예) [username]/status/[id] 라는 주소는 아래와 같이 경로로 만들어 준다.
  
-  <img src="https://private-user-images.githubusercontent.com/138950568/289009775-b414bbc8-b79e-4af5-8e3a-79034ff0857d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMjQzMjMsIm5iZiI6MTcwMjAyNDAyMywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDA5Nzc1LWI0MTRiYmM4LWI3OWUtNGFmNS04ZTNhLTc5MDM0ZmYwODU3ZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQwODI3MDNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xZTA3ZWU4YWE4ZDU1ZDM5Mzc4NjYxNzE2Mjc2ZmJmZGUyZDQxZjVjYmM4NjNlOWJjM2ZjNmIwYWJjYjFkNTQ4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.v97zMcv6pKhDD7XlhSNP3jHYdFYDm4dnYJucR0mdPuw" width="250px" height="auto"/>
+<img width="203" alt="스크린샷 2023-12-08 오후 5 25 30" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b414bbc8-b79e-4af5-8e3a-79034ff0857d">
+
 
   각각 username,id값으로 들어온 주소에 대해 page.tsx로 렌더링 된다.
 
 - app의 경로에 해당하지 않는 페이지는 not-found.tsx로 대응하여 페이지를 적용해 줄수 있다. 폴더 경로는 src에 위치하면 된다. 
 
-<img src="https://private-user-images.githubusercontent.com/138950568/289059983-b0147a5f-eb00-4821-90ed-cc692a397a98.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMzcyMjcsIm5iZiI6MTcwMjAzNjkyNywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDU5OTgzLWIwMTQ3YTVmLWViMDAtNDgyMS05MGVkLWNjNjkyYTM5N2E5OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQxMjAyMDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02MmY4NmI5YzhmMDRlZjAxMjNkMzNiNTAwYzZiYmZmNGQwNjMwODdlNjJiM2VlNWY2ZmQxMGFiZTM1M2U4ZjBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.JBbmizzo9jKisRvmjbEIM8Gna740yf8thYRmmODuDLo" width="250px" height="auto"/>
+
+<img width="268" alt="스크린샷 2023-12-08 오후 8 57 13" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b0147a5f-eb00-4821-90ed-cc692a397a98">
 
 - 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 **그룹폴더**
 (실제 주소에는 관여하지 않는다.)
@@ -59,7 +61,7 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
   page.tsx 두개를 동시에 보여주고 싶을때 사용한다. (기존 페이지를 배경으로 두고 모달을 새루운 경로로 띄울때 사용했다.) <br/>
   아래처럼 page.tsx와 @modal 루트경로가 같아야 한다. <br/>
   
-  <img src="https://private-user-images.githubusercontent.com/138950568/289075554-2e3dc802-f9e8-4092-aaac-b3b7a1ed6498.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwNDE0MTIsIm5iZiI6MTcwMjA0MTExMiwicGF0aCI6Ii8xMzg5NTA1NjgvMjg5MDc1NTU0LTJlM2RjODAyLWY5ZTgtNDA5Mi1hYWFjLWIzYjdhMWVkNjQ5OC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOFQxMzExNTJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wMjBjNDcwZDlkOTRlOTViYzk3OTE5MWE5ZDNmNTdlODcyYzYzZjVlN2VhNTQ0N2YxZWY3ZTEwMjIwYWQzNjBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.nIcKuYk2VoEDbPv5Ok0HDohEnqHU9DOId3fR4f08aaU" width="250px" height="auto"/>
+  <img width="239" alt="스크린샷 2023-12-08 오후 10 10 43" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/2e3dc802-f9e8-4092-aaac-b3b7a1ed6498">
   
   그리고 layout.tsx에 modal을 props로 받아주어야 한다.
   
@@ -88,12 +90,14 @@ page.tsx, layout.tsx 등은 모두 서버 컴포넌트이기 때문에 화면에
 방법은 parallel 라우트로 @modal 폴더를 두고 내부에 (..)i 로 폴더를 구성해주면 원래 주소인 /i/flow/login/page.tsx 가 @modal/(..)i/flow/login으로 interceptor 결국 i/flow/login/경로에는 @modal의 page.tsx 화면이 함께 화면에 보이게 된다. </br>
 i/flow/login/page.tsx는 화면대신 @modal/(..)i/flow/login/page.tsx가 화면에 보인다.</br>
 
-  <img src="https://private-user-images.githubusercontent.com/138950568/289274910-ef7e0bb8-8d08-43cc-830b-d3041408f5d6.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIxMjk2MDksIm5iZiI6MTcwMjEyOTMwOSwicGF0aCI6Ii8xMzg5NTA1NjgvMjg5Mjc0OTEwLWVmN2UwYmI4LThkMDgtNDNjYy04MzBiLWQzMDQxNDA4ZjVkNi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOVQxMzQxNDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZTI3ZGZiYjU3MWQwMTIwNTQ0ZDY0MTcxMDA2ZDY5MzcwZWZiYmMzYjlkYWEyNTgwOTA4NjAwN2I3ODIwZmY2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.EtiPcIIvwdRQEwFpjyy0EKBUHXfF4-q5urRO5PqNt3I" width="250px" height="auto"/>
+ <img width="256" alt="스크린샷 2023-12-09 오후 10 39 19" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/ef7e0bb8-8d08-43cc-830b-d3041408f5d6">
+
 
 따라서 parallel라우트와 intercepter 라우트를 함께 사용하면 페이를 배경으로 두고 새로운 페이지를 화면에 띄울 수 있다. </br>
 
 - intercepter 되지 않은 상태의 i/flow/login/page.tsx는 interceptor된 상태의 페이지를 새로고침 하면 interceptor하지 않은 라우터로 렌더링 된다.
-  <img src="https://private-user-images.githubusercontent.com/138950568/289275627-e3cdd867-99ce-42b9-ac1e-39da3647fc5d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIxMzA1MTcsIm5iZiI6MTcwMjEzMDIxNywicGF0aCI6Ii8xMzg5NTA1NjgvMjg5Mjc1NjI3LWUzY2RkODY3LTk5Y2UtNDJiOS1hYzFlLTM5ZGEzNjQ3ZmM1ZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMjA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTIwOVQxMzU2NTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00NGFlZmFlMjFkZGFjYjRjNDI1OWEyOTU4NTczNmUxZDBjZWNiN2MwNzBjNDdiNTE4MDVkMWUxNzIzMDhjNmU1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.uxDKxM8FlUVPdopsn66cZ1p-rnpfEv2eW5slYbYLmak" width="250px" height="auto"/>
+ <img width="253" alt="스크린샷 2023-12-09 오후 10 55 47" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/e3cdd867-99ce-42b9-ac1e-39da3647fc5d">
+
 
 (beforeLogin) 폴더의 page.tsx의 링크 이동을 눌러 페이지가 지동할 경우에는 interceptor된 @modal/(..)i/flow/login/page.tsx으로 뜨고 직접 /i/flow/login/ 주소를 입력하거나 interceptor된 상태에서 새로고침을 하면 interceptor되지 않은 원 /i/flow/login/page.tsx 페이지가 화면에 보인다.
 
