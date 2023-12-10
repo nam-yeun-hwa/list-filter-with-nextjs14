@@ -142,7 +142,7 @@ app폴더 하위 (beforeLogin)폴더 내부에 _component폴더를 사용하여 
 ```
 
 
-- <Link/> 태그는 a태그 이므로 a태그 일때는 display: inline-block; 로 해주는 것이 좋다.
+- \<Link/> 태그는 a태그 이므로 a태그 일때는 display: inline-block; 로 해주는 것이 좋다.
 
 
   
