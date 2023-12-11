@@ -108,6 +108,19 @@ app폴더 하위 (beforeLogin)폴더 내부에 _component폴더를 사용하여 
 결국 실제 라우터에 관여 하지 않는 폴더는 (폴더이름), _component 의 두가지 경우가 있다.
 
 
+### useSelectedLayoutSegment
+현재 나의 라우터 위치를 알아낼 수 있는 훅을 next에서 지원해 준다.
+useSelectedLayoutSegment는 서브 컴포넌트가 아닌 클라이언트 컴포넌트에서 가능 하다.
+
+```shell
+const segment = useSelectedLayoutSegment();
+console.log(segment) // 현재 활성화된 상위 라우터 주소
+
+const segment = useSelectedLayoutSegments();
+console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['compose', 'tweet'];
+```
+
+
 # 참고 CSS 가운데 정렬 
 
 - 하나의 컨테이너 안에 좌우 엘레멘트 두개를 두고 가운데 정렬 하는 경우 여백이 좌우 넓이가 알맞게 브라우저에 반응하는 CSS 
@@ -143,6 +156,8 @@ app폴더 하위 (beforeLogin)폴더 내부에 _component폴더를 사용하여 
 
 
 - \<Link/> 태그는 a태그 이므로 a태그 일때는 display: inline-block; 로 해주는 것이 좋다.
+
+
 
 
   
