@@ -33,7 +33,7 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
 # src 폴더 설명
 - layout.tsx : 상위 header, bottom등 공통으로 위치하는 컴포넌트들을 배치해 준다.
   - 페이지 내부 app에 들어있는 페이지 안에서는 따로 layout.tsx를 생성하여 사용하면 페이지당 공통 레이아웃이 가능하다.
-  - globals.css 공통적으로 사용하는 css를 app가 사용하는 layout.tsx에 넣어준다.
+  - globals.css 공통적으로 사용하는 css를 layout.tsx에 넣어준다.
     
 - app : Next App Router사용. 주소와 관련 있는 파일들이 위치한다.
   - app 폴더 안에서 다이나믹 라우팅(slug)를 지원해 준다. </br>
@@ -162,7 +162,6 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 
 ```
 
-# globals.css 사용예시
 
 
 # 그외에 사항들 체크 사항
@@ -179,4 +178,4 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 
   
 
-
+참고 - https://www.inflearn.com/course/lecture?courseSlug=next-react-query-sns%EC%84%9C%EB%B9%84%EC%8A%A4&unitId=194471&tab=curriculum
