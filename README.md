@@ -8,11 +8,21 @@ Next.js 앱의 컴포넌트와 페이지에 대해 생각하는 방식에 큰 �
 Next.js 13 버전 이후부터는 Using App Router와 Using Pages Router을 제공 합니다.
 기존버전의 경우는 Pages Router를 사용했다면 13버전 이후로 새롭게 App Router가 추가 되었습니다.
 
-## App 디렉터리가 뭔가요? </br>
+## App Router 뭔가요? </br>
 App 디렉터리는 Next.js에서 라우트를 처리하고 뷰를 렌더링하기 위한 새로운 전략입니다. 
 
 기존의 Next.js에서는 여러 파일에 나누어진 페이지를 생성하고 매핑하는 방식을 사용했습니다. 이로 인해 복잡성이 증가할 수 있었습니다. App Router는 페이지 구조를 더 단순화하고 일관성을 증가시킴으로써 개발자 경험을 향상시킬 수 있습니다.
 App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이동을 보다 효율적으로 관리할 수 있게 합니다. 이로써 라우팅 구성이 더욱 직관적이고 관리하기 쉬워집니다.</br></br>
+
+## Next App Router
+가장 크게 다른 점
+
+- 각종 폴더 유형 추가로 디렉토리 라우팅이 편해짐
+- 레이아웃 기능
+- 페이지별 권한 체크
+- 서버 컴포넌트 분리로 인한 최적화
+- 데이터 캐시
+- 서버 액션
 
 ## 서버 컴포넌트를 적극적으로 사용
 react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으로 사용합니다. </br>
@@ -24,7 +34,9 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
 # src 폴더 설명
 - layout.tsx : 상위 header, bottom등 공통으로 위치하는 컴포넌트들을 배치해 준다.
   - 페이지 내부 app에 들어있는 페이지 안에서는 따로 layout.tsx를 생성하여 사용하면 페이지당 공통 레이아웃이 가능하다.
-- app : 주소와 관련 있는 파일들이 위치한다.
+  - globals.css 공통적으로 사용하는 css를 app가 사용하는 layout.tsx에 넣어준다.
+    
+- app : Next App Router사용. 주소와 관련 있는 파일들이 위치한다.
   - app 폴더 안에서 다이나믹 라우팅(slug)를 지원해 준다. </br>
   - 사용법은 [다이나믹라우팅 이름] 으로 폴더명으로 넣어준다.
   - 예) [username]/status/[id] 라는 주소는 아래와 같이 경로로 만들어 준다.
@@ -32,19 +44,21 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
 <img width="203" alt="스크린샷 2023-12-08 오후 5 25 30" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b414bbc8-b79e-4af5-8e3a-79034ff0857d">
 
 
-  각각 username,id값으로 들어온 주소에 대해 page.tsx로 렌더링 된다.
-
-- app의 경로에 해당하지 않는 페이지는 not-found.tsx로 대응하여 페이지를 적용해 줄수 있다. 폴더 경로는 src에 위치하면 된다. 
+- 각각 username,id값으로 들어온 주소에 대해 page.tsx로 렌더링 된다.
+- app의 경로에 해당하지 않는 페이지는 not-found.tsx로 대응하여 페이지를 적용해 줄수 있다. 폴더 경로는 src에 위치
 
 
 <img width="268" alt="스크린샷 2023-12-08 오후 8 57 13" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b0147a5f-eb00-4821-90ed-cc692a397a98">
 
-- 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 **그룹폴더**
-(실제 주소에는 관여하지 않는다.)
-(beforelogin)
-(afterlogin)
+## Routing Group
+- 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 
+- 실제 주소에는 관여하지 않는다.
+- 소괄호를 사용하여 폴더이름을 지정한다.
 
-레이아웃이 적용되고 안되고 등으로 폴더 경로 페이지를 나눠줄 수 있고 
+예) (beforelogin)
+    (afterlogin)
+
+공통 레이아웃이 다를경우 페이지를 나눠줄 수 있고 
 beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 줄수도 있다.
 
 
@@ -153,6 +167,8 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 }
 
 ```
+
+# globals.css 사용예시
 
 
 - \<Link/> 태그는 a태그 이므로 a태그 일때는 display: inline-block; 로 해주는 것이 좋다.
