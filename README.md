@@ -14,7 +14,7 @@ App 디렉터리는 Next.js에서 라우트를 처리하고 뷰를 렌더링하�
 기존의 Next.js에서는 여러 파일에 나누어진 페이지를 생성하고 매핑하는 방식을 사용했습니다. 이로 인해 복잡성이 증가할 수 있었습니다. App Router는 페이지 구조를 더 단순화하고 일관성을 증가시킴으로써 개발자 경험을 향상시킬 수 있습니다.
 App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이동을 보다 효율적으로 관리할 수 있게 합니다. 이로써 라우팅 구성이 더욱 직관적이고 관리하기 쉬워집니다.</br></br>
 
-- ## Next App Router 가장 크게 다른 점
+- ## App Router 가장 크게 다른 점
   - 각종 폴더 유형 추가로 디렉토리 라우팅이 편해짐
   - 레이아웃 기능
   - 페이지별 권한 체크
@@ -50,9 +50,9 @@ react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으�
 <img width="268" alt="스크린샷 2023-12-08 오후 8 57 13" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b0147a5f-eb00-4821-90ed-cc692a397a98">
 
 - ## Routing Group
-- 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 
-- 실제 주소에는 관여하지 않는다.
-- 소괄호를 사용하여 폴더이름을 지정한다.
+  - 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 
+  - 실제 주소에는 관여하지 않는다.
+  - 소괄호를 사용하여 폴더이름을 지정한다.
 
 예) (beforelogin)
     (afterlogin)
@@ -93,8 +93,8 @@ layout.tsx에서 page.tsx는 children으로 modal은 modal로 렌더링 된다.
   - 클라이언트 컴포넌트로 변경하는 방법은 page.tsx나 layout.tsx 상단에 "use client"; 를 추가해 주면 된다. <br/>
 
 - ### Interception Routes <br/>
-- 서로 주소가 다른 page.tsx를 띄울수 있게 해준다.
-- layout.tsx 에서 @modal이하 page.tsx는 @modal에서 뜨고 나머지 page.tsx는 children에서 뜨게 해준다. </br></br>
+  - 서로 주소가 다른 page.tsx를 띄울수 있게 해준다.
+  - layout.tsx 에서 @modal이하 page.tsx는 @modal에서 뜨고 나머지 page.tsx는 children에서 뜨게 해준다. </br></br>
   방법은 parallel 라우트로 @modal 폴더를 두고 내부에 (..)i 로 폴더를 구성해주면 원래 주소인 /i/flow/login/page.tsx 가 @modal/(..)i/flow/login으로 interceptor 결국 i/flow/login/경로에는 @modal의 page.tsx 화면이 함께 화면에 보이게 된다. </br>
   i/flow/login/page.tsx는 화면대신 @modal/(..)i/flow/login/page.tsx가 화면에 보인다.</br>
 
