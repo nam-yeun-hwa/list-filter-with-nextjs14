@@ -136,6 +136,8 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 <img src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/1feb979a-326a-4781-8040-2230b047b9e0" width="720px" border="1px" border="1px solid #000"/>
 
 <img src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/1892a86a-f051-4116-ae95-90141577d9d7" width="720px" border="1px solid #000"/>
+</br>
+</br>
 
 
 
