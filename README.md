@@ -172,6 +172,7 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 - 클라이언트에서 리다이렉트 > const router = useRouter(); router.replace('라우터 경로'); 해주면 클라이언트 컴포넌트에서 리다이렉트 시켜줄수 있다.
 - <Image/>를 next에서 지원해 준다. <Image/>는 next에서 알아서 이미지최적화를 해준다. 이미지 경로는 import Logo from "public 폴더 안에 이미지 경로"로 사용한다.
 - \<Link/> 태그는 a태그 이므로 a태그 일때는 display: inline-block; 로 해주는 것이 좋다.
+- 엘레멘트에 blur 필터주기 : backdrop-filter : blur(12px);
 
 
 
