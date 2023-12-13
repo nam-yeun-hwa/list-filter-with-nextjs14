@@ -128,8 +128,110 @@ const segment = useSelectedLayoutSegments();
 console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['compose', 'tweet'];
 ```
 
+# Dayjs 라이브러리
 
-# 참고 CSS 가운데 정렬 
+JavaScript에서 날짜 및 시간을 다루기 위한 경량 라이브러리입니다.
+
+```shell
+npm install dayjs
+```
+
+ 
+
+### 현재 날짜로부터 특정 날짜까지의 시간 간격
+
+```shell
+
+  const dayjs = require('dayjs');
+  const relativeTime = require('dayjs/plugin/relativeTime');
+  const 'dayjs/locale/ko'; 
+
+  // 한글 플러그인 활성화
+  dayjs.locale('ko');
+  // 상대적인 시간 표시를 위한 플러그인 활성화
+  dayjs.extend(relativeTime);
+  
+
+  // 특정 날짜
+  const someDate = dayjs('2023-01-01');
+  
+  // 현재 날짜로부터 특정 날짜까지의 시간 간격을 사람이 읽기 쉬운 형식으로 얻기
+  const timeAgo = someDate.fromNow();
+  
+  console.log(timeAgo); // 예: "2 months ago"
+```
+
+
+
+### 현재 날짜 및 시간 객체 생성 날짜 및 시간 지정 
+
+- 포맷 지정
+
+```shell
+  date.format(); // 2022-05-24T10:30:25+09:00
+  date.format("YY-MM-DD"); // 22-05-24
+  date.format("DD/MM/YY"); // 05/24/22
+  date.format("YYYY.MM.DD HH:mm:ss"); // 2022.05.24 10:30:25
+  date.format("YYYY년MM월DD일 HH:mm:ss") // 2022년05월24일 10:30:25
+```
+</br>
+
+- 요일
+  
+```shell
+  dayjs.locale('ko');
+  dayjs(2022-11-13T18:08:33).format('MM.DD(ddd)') // 11.13(월)
+```
+</br>
+
+- 날짜 시간 단위 값 구하기
+
+```shell
+
+const now = dayjs();
+
+  now.format(); // 2022-05-24T19:03:02+09:00
+  now.get("year"); // 2022 (년)
+  now.get("y"); // 2022 (년)
+
+  now.get("month"); // 05 (월 - 0~11)
+  now.get("M"); // 5 (월 - 0~11)
+
+  now.get("date"); // 24 (일)
+  now.get("D"); // 24 (일)
+
+  now.get("day"); // 0 (요일 - 일요일 : 0, 토요일 : 6)
+  now.get("d"); // 0 (요일 - 일요일 : 0, 토요일 : 6)
+
+  now.get("hour"); // 19 (시)
+  now.get("h"); // 19 (시)
+
+  now.get("minute"); // 3 (분)
+  now.get("m"); // 3 (분)
+
+  now.get("second"); // 2 (초)
+  now.get("s"); // 2 (초)
+
+  now.get("millisecond"); // 179 (밀리초)
+  now.get("ms"); // 179 (밀리초)
+```
+</br>
+
+- 날짜 및 시간 더하기 빼기 - add(), subtract()
+  
+```shell
+  const date = dayjs("2022-05-24 10:30:21");
+  date.add(1, "year").format(); // 2023
+  date.add(1, "month").format(); // 2022-06
+  date.add(1, "week").format(); // 2022-05-31
+
+  date.add(1, "year").format(); // 2021
+  date.add(1, "month").format(); // 2022-04
+  date.add(1, "week").format(); // 2022-05-17
+```
+</br>
+
+# [참고] css 가운데 정렬 
 
 - 하나의 컨테이너 안에 좌우 엘레멘트 두개를 두고 가운데 정렬 하는 경우 여백이 좌우 넓이가 알맞게 브라우저에 반응하는 CSS 
 
@@ -163,8 +265,56 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 }
 
 ```
+</br>
+</br>
 
+# [참고] css trasition 사용
 
+```shell
+  .uploadButton {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      border-radius: 17px;
+      transition-duration: 0.2s;
+      transition-property: background-color;
+      background-color: rgb(29, 155, 240, 0.01);
+     
+  }
+  .uploadButton:hover {
+      background-color: rgb(29, 155, 240, 0.1);
+  }
+```
+마우스 hover, out시 transition-property의 background-color값이 변경될때 마다 0.2s의 시간을 두고 자연스럽게 변경 되도록 한다.
+</br>
+</br>
+# align-items : strech; 
+stretch는 디폴트 값이며, 모든 아이템이 컨테이너의 크기에 맞춰서 늘어난다.
+<img width="813" alt="스크린샷 2023-12-13 오후 3 33 18" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/cb40b9f7-a108-4ae5-8cb5-ccd1230b4a30">
+</br>
+</br>
+# align-content
+align-content는 flex-wrap과 관련된 속성으로 아이템이 flex-wrap에 의해 두 줄 이상으로 배열되었을 경우의 배치를 컨트롤하는 속성이다.
+</br>
+</br>
+<img width="804" alt="스크린샷 2023-12-13 오후 3 37 43" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/77e17b1e-b609-46d5-90e4-f8de5cb593b9">
+
+- align-content의 속성
+
+  - stretch: 디폴트 값으로, 부모 요소의 보조 축의 전체 영역을 다 차지한다.
+  - center: 부모 요소의 보조 축의 중앙에 정렬된다.
+  - flex-start: 부모 요소의 보조 축의 시작 부분에 정렬된다.
+  - flex-end: 부모 요소의 보조 축의 끝 부분에 정렬된다.
+  - space-between: 부모 요소의 보조 축의 양 끝에 정렬되며, 동일한 거리 간격을 가진다.
+  - space-around: 부모 요소의 보조 축의 양 끝에 정렬되지만, space-between과 다르게 양 끝이 약간 떨어져 있다.
+  - space-evenly: 부모 요소의 보조 축에 정렬될 때 아이템들이 동일한 양쪽 마진 값을 가진다.
+
+</br>
+</br>
 
 # 그외에 사항들 체크 사항
 
@@ -175,6 +325,7 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 - <Image/>를 next에서 지원해 준다. <Image/>는 next에서 알아서 이미지최적화를 해준다. 이미지 경로는 import Logo from "public 폴더 안에 이미지 경로"로 사용한다.
 - \<Link/> 태그는 a태그 이므로 a태그 일때는 display: inline-block; 로 해주는 것이 좋다.
 - 엘레멘트에 blur 필터주기 : backdrop-filter : blur(12px);
+  
 
 
 
