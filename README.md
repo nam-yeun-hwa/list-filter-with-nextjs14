@@ -26,7 +26,7 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
   - 서버 액션
 
 
-# 프로젝트 설명 src 폴더 설명
+# 프로젝트 src 폴더 설명
 - layout.tsx : 상위 header, bottom등 공통으로 위치하는 컴포넌트들을 배치해 준다.
   - 페이지 내부 app에 들어있는 페이지 안에서는 따로 layout.tsx를 생성하여 사용하면 페이지당 공통 레이아웃이 가능하다.
   - globals.css 공통적으로 사용하는 css를 layout.tsx에 넣어준다.
