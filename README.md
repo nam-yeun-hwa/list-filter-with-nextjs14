@@ -121,10 +121,37 @@ const segment = useSelectedLayoutSegments();
 console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['compose', 'tweet'];
 ```
 
+- ### usePathname()
 
-## 사용된 라이브러리
+  const pathname = usePathname() 
+  pathname에 따른 렌더링 분기처리
+  
+```shell
+"use client";
+import {usePathname} from "next/navigation";
 
-# Dayjs 라이브러리
+export default function RightSearchZone() {
+  const pathname = usePathname()
+
+  if (pathname === '/explore') {
+    return null;
+  }
+  if (pathname === '/search') {
+    return (
+      <div></div>
+    );
+  }
+  return (
+    <div style={{ marginBottom: 60, width: 'inherit' }}>
+      <SearchForm />
+    </div>
+  )
+}
+```
+
+# 사용된 라이브러리
+
+## Dayjs 라이브러리
 
 JavaScript에서 날짜 및 시간을 다루기 위한 경량 라이브러리입니다.
 
@@ -226,6 +253,47 @@ const now = dayjs();
   date.add(1, "week").format(); // 2022-05-17
 ```
 </br>
+
+
+
+## 조건부에 따른 클래스 합성 라이브러리 
+
+변수를 만들고 변수의 boolean 상태 값이 true일때 해당 스타일이 적용 되도록 한다.
+
+```shell
+
+"use client"
+import style from './post.module.css';
+import cx from 'classnames';
+
+export default function ActionButtons() {
+  //아래 변수의 상태 값이 true일때 해당 스타일이 적용 되도록 한다.
+  const commented = true;
+  const reposted = true;
+  const liked = false;
+
+  return (
+    <div className={style.actionButtons}>
+      <div className={cx(style.commentButton, { [style.commented]: commented })}></div>
+      <div className={cx(style.repostButton, reposted && style.reposted)}></div>
+      <div className={cx([style.heartButton, liked && style.liked])}></div>
+    </div>
+  )
+}
+```
+
+css 사용 예)
+
+```shell
+  .heartButton.liked svg, .heartButton:hover svg {
+      fill: rgb(228, 34, 126);
+  }
+  
+  .heartButton.liked .count, .heartButton:hover .count {
+      color: rgb(228, 34, 126);
+  }
+```
+
 
 # [참고] css 가운데 정렬 
 
