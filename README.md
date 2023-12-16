@@ -123,8 +123,8 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 
 - ### usePathname()
 
-  const pathname = usePathname() 
-  pathname에 따른 렌더링 분기처리
+const pathname = usePathname() </br>
+pathname에 따른 렌더링 분기처리
   
 ```shell
 "use client";
@@ -147,6 +147,130 @@ export default function RightSearchZone() {
     </div>
   )
 }
+```
+
+- ### useSearchParam()
+query string 받아오기
+
+```shell
+  'use client'
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const onClickGotoPage = () => {
+    //query string중 q값 가져오기
+    router.replace(`/search?q=${searchParams.get('q')}`)
+    //query string중 전체 값 가져오기
+    router.replace(`/search?q=${searchParams.toString()}`)
+
+  }
+```
+- ### 클라이언트 컴포넌트와 서버컴포넌트로 구성하기
+
+PostArtcle 컴포넌트에서 자식 프롭스로 children을 받아 화면에 표시해 주고 있다. </br>
+PostArtcle 컴포넌트는 클라이언트 컴포넌트이다.
+
+- 부모컴포넌트
+  
+```shell
+"use client";
+
+import {ReactNode} from "react";
+import style from './post.module.css';
+import {useRouter} from "next/navigation";
+
+type Props = {
+  children: ReactNode,
+  post: {
+    postId: number;
+    content: string,
+    User: {
+      id: string,
+      nickname: string,
+      image: string,
+    },
+    createdAt: Date,
+    Images: any[],
+  }
+}
+
+export default function PostArticle({ children, post}: Props) {
+  const router = useRouter();
+  const onClick = () => {
+    router.push(`/${post.User.id}/status/${post.postId}`);
+  }
+
+  return (
+    <article onClickCapture={onClick} className={style.post}>
+      {children}
+    </article>
+  );
+}
+```
+
+- 자식컴포넌트
+  
+```shell
+
+type Props = {
+  noImage?: boolean
+}
+export default function Post({ noImage }: Props) {
+  const target = {
+    postId: 1,
+    User: {
+      id: 'elonmusk',
+      nickname: 'Elon Musk',
+      image: '/yRsRRjGO.jpg',
+    },
+    content: '클론코딩 라이브로 하니 너무 힘들어요 ㅠㅠ',
+    createdAt: new Date(),
+    Images: [] as any[],
+  }
+  if (Math.random() > 0.5 && !noImage) {
+    target.Images.push(
+      {imageId: 1, link: faker.image.urlLoremFlickr()},
+      {imageId: 2, link: faker.image.urlLoremFlickr()},
+      {imageId: 3, link: faker.image.urlLoremFlickr()},
+      {imageId: 4, link: faker.image.urlLoremFlickr()},
+    )
+  }
+
+  return (
+    <PostArticle post={target}>
+      <div className={style.postWrapper}>
+        <div className={style.postUserSection}>
+          <Link href={`/${target.User.id}`} className={style.postUserImage}>
+            <img src={target.User.image} alt={target.User.nickname}/>
+            <div className={style.postShade}/>
+          </Link>
+        </div>
+        <div className={style.postBody}>
+          <div className={style.postMeta}>
+            <Link href={`/${target.User.id}`}>
+              <span className={style.postUserName}>{target.User.nickname}</span>
+              &nbsp;
+              <span className={style.postUserId}>@{target.User.id}</span>
+              &nbsp;
+              ·
+              &nbsp;
+            </Link>
+            <span className={style.postDate}>{dayjs(target.createdAt).fromNow(true)}</span>
+          </div>
+          <div>{target.content}</div>
+          <div>
+            <PostImages post={target} />
+          </div>
+          <ActionButtons/>
+        </div>
+      </div>
+    </PostArticle>
+  )
+}
+
+
+
 ```
 
 # 사용된 라이브러리
