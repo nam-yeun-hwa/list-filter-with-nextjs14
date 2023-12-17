@@ -171,6 +171,8 @@ query string 받아오기
 PostArtcle 컴포넌트에서 자식 프롭스로 children을 받아 화면에 표시해 주고 있다. </br>
 PostArtcle 컴포넌트는 클라이언트 컴포넌트이다.
 
+만약 서버 컴포넌트를 import하여 사용할 경우 서버컴포넌트가 클라이언트 컴포넌트 성격이 변경 된다.
+
 - 부모컴포넌트
   
 ```shell
@@ -269,8 +271,13 @@ export default function Post({ noImage }: Props) {
   )
 }
 
+```
 
+## 이벤트 캡쳐링 onClickCapture
+사용 컴포넌트 내에서 <Link/> 컴포넌트와 onClick이 동시에 사용되어 이벤트가 상위나 하위로 옮겨 가는 경우에 아래와 같이 사용할 수 있다.
 
+```shell
+  <article onClickCapture={onClick}/>
 ```
 
 # 사용된 라이브러리
@@ -380,7 +387,7 @@ const now = dayjs();
 
 
 
-## 조건부에 따른 클래스 합성 라이브러리 
+## 조건부에 따른 클래스 합성 라이브러리 cx
 
 변수를 만들고 변수의 boolean 상태 값이 true일때 해당 스타일이 적용 되도록 한다.
 
@@ -417,6 +424,14 @@ css 사용 예)
       color: rgb(228, 34, 126);
   }
 ```
+
+## faker.js
+
+```shell
+  npm i @faker-js/jaker
+```
+
+
 
 
 # [참고] css 가운데 정렬 
