@@ -32,7 +32,7 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
   - globals.css 공통적으로 사용하는 css를 layout.tsx에 넣어준다.
     
 - app : Next App Router사용. 주소와 관련 있는 파일들이 위치한다.
-  - app 폴더 안에서 다이나믹 라우팅(slug)를 지원해 준다. </br>
+  - app 폴더 안에서 다이나믹 라우팅(slug : [폴더이름])를 지원해 준다. </br>
   - 사용법은 [다이나믹라우팅 이름] 으로 폴더명으로 넣어준다.
   - 예) [username]/status/[id] 라는 주소는 아래와 같이 경로로 만들어 준다.
  
@@ -77,7 +77,20 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
   ```
 
 layout.tsx에서 page.tsx는 children으로 modal은 modal로 렌더링 된다.
+
+  - ### default.tsx
+parallel router 사용시 @modal에서 경로에서 default.tsx 꼭 넣어주어야 함!!!
 @madal폴더에도 page.tsx가 필요한데 넣을 내용이 없을 경우에는 default.tsx를 추가 해주어야 오류가 뜨지 않는다. 
+잘 살펴보면 @modal에서 모달로 띄우는 경로과 배경이 되는 경로가 같다.
+
+```shell
+export default function Default() {
+  return null;
+}
+```
+
+<img width="174" alt="스크린샷 2023-12-17 오후 3 11 22" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/05b87351-8b31-436f-aa4b-afe8458df18a">
+
 
 - ### 서버 컴포넌트에서는 useState, useEffect등을 사용할 수 없다. 
 
@@ -271,10 +284,36 @@ export default function Post({ noImage }: Props) {
   )
 }
 
+
+## 다이나믹 라우팅 슬러그들의 value 값 받기
+
+props에서 params속성안에 슬러그들의 값을 참조 할수 있다.
+
+```shell
+type Props = {
+  params: { username: string, id: string, photoId: string }
+}
+
+export default function Page({ params }: Props) {
+  params.username // elonmusk
+  params.id // 1
+  params.photoId // 1
+  return (
+    <Home />
+  )
+}
+```
+
+
 ```
 
 ## 이벤트 캡쳐링 onClickCapture
 사용 컴포넌트 내에서 <Link/> 컴포넌트와 onClick이 동시에 사용되어 이벤트가 상위나 하위로 옮겨 가는 경우에 아래와 같이 사용할 수 있다.
+
+- Capturing Phase (캡처링 단계): 이벤트가 가장 먼 조상 요소에서 시작하여 이벤트가 발생한 요소까지 이동
+- Target Phase (타겟 단계): 이벤트가 실제로 발생한 대상 요소에서 이벤트 핸들러가 호출
+- Bubbling Phase (버블링 단계): 이벤트가 다시 가장 먼 조상 요소로 거슬러 올라가면서 이벤트 핸들러가 호출
+
 
 ```shell
   <article onClickCapture={onClick}/>
