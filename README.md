@@ -558,6 +558,18 @@ align-content는 flex-wrap과 관련된 속성으로 아이템이 flex-wrap에 �
 </br>
 </br>
 
+# display: grid
+
+```shell
+.fourImage {
+    height: 272px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+}
+```
+
 # 그외에 사항들 체크 사항
 
 - dvw와 dvh의 단위를 사용하여 css로 페이지의 반응형 넓이 높이를 넣어준다. 이점은 페이지에서 주소창이 사라지거나 생기는 경우에 화면에서 깨지지 않고 모두 대응이 가능하다.
