@@ -464,12 +464,17 @@ css 사용 예)
   }
 ```
 
-## faker.js
+## .env
+- 브라우저에서 접근 가능한 환경 변수는 NEXT_PUBLIC 으로 시작하면 된다.
 
 ```shell
-  npm i @faker-js/jaker
+NEXT_PUBLIC_API_MOCING = enabled;
 ```
+- NEXT_PUBLIC으로 시작하지 않을 경우에는 서버에서만 접근 가능하다.
 
+```shell
+NEXT_PUBLIC_API_MOCING = enabled;
+```
 
 
 
