@@ -304,8 +304,29 @@ export default function Page({ params }: Props) {
 }
 ```
 
+## Server Actions
+- 회원가입에 적용하기(Next 14부터 가능)
+- 클라이언트 컴포넌트에서도 사용 가능
+- useFormState와 useFormStatus 적용하기
 
+## next-auth@5
+
+```shell
+npm install next-auth@5 @auth/core
 ```
+- auth.ts, middleware.ts, app/api/auth/[...nextauth]/route.ts 생성
+- 로그인을 위해 signIn("credentials") 호출(csrf 토큰 알아서 관리)
+- 로그아웃을 위해 signOut 호출
+- 클라이언트에서 내 정보 가져올 때는 useSession(), 서버에서는 await auth();
+- session 안 내 정보는 email, name, image만 가능(헷갈리니 주의)
+
+## 페이지 접근 권한
+middleware.ts로 페이지 접근 제어
+
+- (afterLogin) 내부의 [username]과 [username]/status/[id] 페이지는 모두 공개
+- 그 외 (afterLogin) 페이지들은 로그인한 사람만 접근 가능
+
+
 
 ## 이벤트 캡쳐링 onClickCapture
 사용 컴포넌트 내에서 <Link/> 컴포넌트와 onClick이 동시에 사용되어 이벤트가 상위나 하위로 옮겨 가는 경우에 아래와 같이 사용할 수 있다.
@@ -463,6 +484,84 @@ css 사용 예)
       color: rgb(228, 34, 126);
   }
 ```
+
+## Auth.js
+
+로그인과 로그아웃시 CredentialsProvider 와 NextAuth.js 사용
+- 로그인
+- 로그아웃
+- 현재 내 정보 불러오기
+
+  ### 1. src 폴더내에 auth.js 생성
+     
+```shell
+import NextAuth from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials";
+import {NextResponse} from "next/server";
+
+export const {
+  handlers: { GET, POST }, // api 라우트 
+  auth, //auth() 함수를 호출하면 내가 로그인을 했는지 안했는지 알아 낼수 있다.
+  signIn, //로그인 하는용
+} = NextAuth({
+  pages: {
+    signIn: '/i/flow/login',
+    newUser: '/i/flow/signup',
+  },
+  providers: [
+    CredentialsProvider({
+      async authorize(credentials) {
+        const authResponse = await fetch(`${process.env.AUTH_URL}/api/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: credentials.username,
+            password: credentials.password,
+          }),
+        })
+
+        if (!authResponse.ok) {
+          return null
+        }
+
+        const user = await authResponse.json()
+        console.log('user', user);
+        return {
+          email: user.id,
+          name: user.nickname,
+          image: user.image,
+          ...user,
+        }
+      },
+    }),
+  ]
+});
+```
+### 2. src 폴더내에 middleware.ts 생성
+
+```shell
+import { auth } from "./auth"
+import {NextResponse} from "next/server";
+
+// 아래 등록되어진 라우터들의 페이지에 접속하기 전에 아래 middleware함수가 먼저 실행 된다.
+// 예) 로그인했으면 통과 로그인을 안했으면 redirect로 로그인 페이지로 연결
+export async function middleware() {
+
+  
+  const session = await auth();
+  if (!session) {
+    return NextResponse.redirect('http://localhost:3000/i/flow/login');
+  }
+}
+
+// matcher은 미들웨어를 적용할 라우터들이며 공통적으로 로그인을 해야만 접근이 가능한 라우터들이다.
+export const config = {
+  matcher: ['/compose/tweet', '/home', '/explore', '/messages', '/search'],
+}
+```
+
 
 ## .env
 - 브라우저에서 접근 가능한 환경 변수는 NEXT_PUBLIC 으로 시작하면 된다.
