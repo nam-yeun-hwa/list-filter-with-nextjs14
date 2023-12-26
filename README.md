@@ -283,7 +283,7 @@ export default function Post({ noImage }: Props) {
     </PostArticle>
   )
 }
-
+```
 
 ## 다이나믹 라우팅 슬러그들의 value 값 받기
 
@@ -493,20 +493,26 @@ css 사용 예)
 - 현재 내 정보 불러오기
 
   ### 1. src 폴더내에 auth.js 생성
+
+https://next-auth.js.org/providers/credentials
+
+로그인시 CredentialsProvider의 함수가 호출된다.
+pages에 로그인 페이지 라우터를 등록 해주도록 한다.
      
 ```shell
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 import {NextResponse} from "next/server";
 
+
 export const {
-  handlers: { GET, POST }, // api 라우트 
+  handlers: { GET, POST }, // auth에서 제공해주는 api 라우트  
   auth, //auth() 함수를 호출하면 내가 로그인을 했는지 안했는지 알아 낼수 있다.
   signIn, //로그인 하는용
 } = NextAuth({
   pages: {
-    signIn: '/i/flow/login',
-    newUser: '/i/flow/signup',
+    signIn: '/i/flow/login', //로그인 라우터 
+    newUser: '/i/flow/signup', //회원가입 페이지 라우터
   },
   providers: [
     CredentialsProvider({
@@ -560,6 +566,57 @@ export async function middleware() {
 export const config = {
   matcher: ['/compose/tweet', '/home', '/explore', '/messages', '/search'],
 }
+```
+
+## api 라우터 실제 경로 설정 
+api 라우터는 브라우저 라우터처럼 실제 주소가 된다.
+
+<img width="203" alt="스크린샷 2023-12-08 오후 5 25 30" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/25bbdaee-d378-4c84-8ec7-7f3390f5c806">
+
+위 경로중 [...folderName]는 catch all route 이다. 
+[...folderName] 경로에는 어떤 경로든 들어갈 수 있다. 
+
+|Route|Example|URL|params|
+|---|---|---|---|
+|pages/shop/[...slug].js|	/shop/a|	{ slug: ['a'] }|
+|pages/shop/[...slug].js|	/shop/a/b|	{ slug: ['a', 'b'] }|
+|pages/shop/[...slug].js|	/shop/a/b/c|	{ slug: ['a', 'b', 'c'] }|
+
+https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments
+
+router.ts 
+
+```shell
+export { GET, POST } from '@/auth';
+```
+GET, POST의 함수를 구현하지 않고 auth에서 제공하는 GET, POST를 사용 한다. 
+
+
+로그인 페이지에서 아이디와 페스워드 등을 입력호 onSubmit을 호출해줄때 signIn을 사용해 준다.
+
+```shell
+
+import {signIn} from "next-auth/react"; // 프론트엔드 서버 사용시
+import {signIn} from "@/auth"; //서버 환경에서 사용
+
+const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    try {
+      await signIn("credentials", {
+        username: id,
+        password,
+        redirect: false, //redirect를 true로 하면 서버에서 redirect를 실행 한다.
+      })
+      router.replace('/home');
+    } catch (err) {
+      console.error(err);
+      setMessage('아이디와 비밀번호가 일치하지 않습니다.');
+    }
+  };
+  const onClickClose = () => {
+    router.back();
+  };
 ```
 
 
