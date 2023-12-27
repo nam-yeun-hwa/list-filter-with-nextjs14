@@ -547,15 +547,17 @@ export const {
 ```
 ### 2. src 폴더내에 middleware.ts 생성
 
+아래 등록되어진 라우터들의 페이지에 접속하기 전에 아래 middleware함수가 먼저 실행 된다.
+예) 로그인했으면 통과 로그인을 안했으면 redirect로 로그인 페이지로 연결
+
 ```shell
 import { auth } from "./auth"
 import {NextResponse} from "next/server";
 
-// 아래 등록되어진 라우터들의 페이지에 접속하기 전에 아래 middleware함수가 먼저 실행 된다.
-// 예) 로그인했으면 통과 로그인을 안했으면 redirect로 로그인 페이지로 연결
 export async function middleware() {
 
-  
+  로그아웃 후 로그인이 되어야 하는 페이지 주소를 입력하면 로그인 페이지로 이동하도록 하기
+- session이 없을 경우 로그인 페이지로 이동
   const session = await auth();
   if (!session) {
     return NextResponse.redirect('http://localhost:3000/i/flow/login');
@@ -597,7 +599,7 @@ GET, POST의 함수를 구현하지 않고 auth에서 제공하는 GET, POST를 
 ```shell
 
 import {signIn} from "next-auth/react"; // 프론트엔드 서버 사용시
-import {signIn} from "@/auth"; //서버 환경에서 사용
+import {signIn} from "@/auth"; //서버 컴포넌트에서 사용
 
 const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -618,6 +620,48 @@ const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     router.back();
   };
 ```
+
+## useSession()
+로그인 후 내 정보를 useSession에서 불러 올 수 있다.
+
+```shell
+import {signIn} from "next-auth/react"; // 프론트엔드 서버 사용시
+
+const { data: me } = useSession();
+
+const onLogout = () => {
+    signOut({ redirect: false }) //redirect를 true로 하면 서버에서 redirect를 실행 한다.
+      .then(() => {
+        router.replace('/');
+      });
+  };
+```
+
+다른 사용법 예제
+```shell
+import Main from "@/app/(beforeLogin)/_component/Main";
+import {auth} from "@/auth";
+import {redirect} from "next/navigation";
+
+export default async function Home() {
+  const session = await auth();
+  if (session?.user) {
+    redirect('/home');
+    return null;
+  }
+  return (
+    <Main />
+  )
+}
+
+```
+
+현재 세션 값을 이용하여 로그인 여부에 따라 화면에서 안보이게 보이게 컨트롤이 가능하다.
+
+```shell
+const session = await auth();
+```
+
 
 
 ## .env
