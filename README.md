@@ -8,19 +8,19 @@ Next.js 앱의 컴포넌트와 페이지에 대해 생각하는 방식에 큰 �
 Next.js 13 버전 이후부터는 Using App Router와 Using Pages Router을 제공 합니다.
 기존버전의 경우는 Pages Router를 사용했다면 13버전 이후로 새롭게 App Router가 추가 되었습니다.
 
-- ## App Router 뭔가요? </br>
+## App Router 뭔가요? </br>
 App 디렉터리는 Next.js에서 라우트를 처리하고 뷰를 렌더링하기 위한 새로운 전략입니다. 
 
 기존의 Next.js에서는 여러 파일에 나누어진 페이지를 생성하고 매핑하는 방식을 사용했습니다. 이로 인해 복잡성이 증가할 수 있었습니다. App Router는 페이지 구조를 더 단순화하고 일관성을 증가시킴으로써 개발자 경험을 향상시킬 수 있습니다.
 App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이동을 보다 효율적으로 관리할 수 있게 합니다. 이로써 라우팅 구성이 더욱 직관적이고 관리하기 쉬워집니다.</br></br>
 
-- ## App Router 가장 크게 다른 점
+## App Router 가장 크게 다른 점
   - 각종 폴더 유형 추가로 디렉토리 라우팅이 편해짐
   - 레이아웃 기능
-  - 페이지별 권한 체크
-  - 서버 컴포넌트 분리로 인한 최적화
-    - react18 버전을 사용하는 nextjs13은 서버 컴포넌트를 적극적으로 사용합니다. </br>
-    서버 컴포넌트를 설명 하자면 넥스트 서버에서 리액트를 미리 렌더링해서 프론트 또는 브라우저로 완성된 HTML를 미리 보내줍니다. 사용자의 브라우저에서 했던 일들을 넥스트 서버에서 처리하기 떄문에 넥스트 서버의 부담이 늘어 났고 그 부담을 줄이기 위해 넥스트 서버에서는 적극적으로 캐싱을 활용하여 부담을 줄이도록 하였습니다. 예전에 Pages Router를 사용했을때 각각의 페이지에서 캐싱 기능을 구현하였다면 App Router에서는 캐싱등의 기능을 넥스트 서버에서 대신하여 처리해 줍니다. </br> 예) page.tsx, layout.tsx
+  - 페이지별 권한 체크(next-auth@5)
+  - 서버 컴포넌트 분리로 인한 최적화 </br>
+    서버 컴포넌트를 설명 하자면 넥스트 서버에서 HTML을 미리 렌더링해서 프론트 또는 브라우저로 완성된 HTML를 미리 보내줍니다. </br>
+    예전에 Pages Router를 사용했을때 각각의 페이지에서 캐싱 기능을 구현하였다면 App Router에서는 캐싱등의 기능을 넥스트 서버에서 대신하여 처리해 줍니다. </br>
     
   - 데이터 캐시
   - 서버 액션
@@ -45,7 +45,7 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
 
 <img width="268" alt="스크린샷 2023-12-08 오후 8 57 13" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b0147a5f-eb00-4821-90ed-cc692a397a98">
 
-- ## Routing Group
+## Routing Group
   - 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 
   - 실제 주소에는 관여하지 않는다.
   - 소괄호를 사용하여 폴더이름을 지정한다.
@@ -57,7 +57,7 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
 beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 줄수도 있다.
 
 
-- ### Parallel Route <br/>
+### Parallel Route <br/>
   page.tsx 두개를 동시에 보여주고 싶을때 사용한다. (기존 페이지를 배경으로 두고 모달을 새루운 경로로 띄울때 사용했다.) <br/>
   아래처럼 page.tsx와 @modal 루트경로가 같아야 한다. <br/>
   
@@ -78,7 +78,7 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
 
 layout.tsx에서 page.tsx는 children으로 modal은 modal로 렌더링 된다.
 
-  - ### default.tsx
+### default.tsx
 parallel router 사용시 @modal에서 경로에서 default.tsx 꼭 넣어주어야 함!!!
 @madal폴더에도 page.tsx가 필요한데 넣을 내용이 없을 경우에는 default.tsx를 추가 해주어야 오류가 뜨지 않는다. 
 잘 살펴보면 @modal에서 모달로 띄우는 경로과 배경이 되는 경로가 같다.
@@ -91,14 +91,13 @@ export default function Default() {
 
 <img width="174" alt="스크린샷 2023-12-17 오후 3 11 22" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/05b87351-8b31-436f-aa4b-afe8458df18a">
 
-
-- ### 서버 컴포넌트에서는 useState, useEffect등을 사용할 수 없다. 
+### 서버 컴포넌트에서는 useState, useEffect등을 사용할 수 없다. 
 
   - page.tsx, layout.tsx 등은 모두 서버 컴포넌트이기 때문에 화면에 렌더링 된후에 사용하는 useState나 useEffect를 사용할 수 없다. <br/>
   - 이런 경우에는 서버 컴포넌트를 클라이언트 컴포넌트도 변경 해주어야 한다. <br/>
   - 클라이언트 컴포넌트로 변경하는 방법은 page.tsx나 layout.tsx 상단에 "use client"; 를 추가해 주면 된다. <br/>
 
-- ### Interception Routes <br/>
+### Interception Routes <br/>
   - 서로 주소가 다른 page.tsx를 띄울수 있게 해준다.
   - layout.tsx 에서 @modal이하 page.tsx는 @modal에서 뜨고 나머지 page.tsx는 children에서 뜨게 해준다. </br></br>
   방법은 parallel 라우트로 @modal 폴더를 두고 내부에 (..)i 로 폴더를 구성해주면 원래 주소인 /i/flow/login/page.tsx 가 @modal/(..)i/flow/login으로 interceptor 결국 i/flow/login/경로에는 @modal의 page.tsx 화면이 함께 화면에 보이게 된다. </br>
@@ -116,13 +115,15 @@ export default function Default() {
   (beforeLogin) 폴더의 page.tsx의 링크 이동을 눌러 페이지가 지동할 경우에는 interceptor된 @modal/(..)i/flow/login/page.tsx으로 뜨고 직접 /i/flow/login/ 주소를 입력하거나 interceptor된 상태에서 새로고침을 하면 interceptor되지 않은 원 /i/flow/login/page.tsx 페이지가 화면에 보인다.
 
 
-- ### private 폴더 _component 
+### private 폴더 _component 
 app폴더 하위 (beforeLogin)폴더 내부에 _component폴더를 사용하여 내부에 컴포넌트를 만들면 실제 주소에는 관여하지 않고 공통되는 페이지를 화면에 보여 줄수 있다. 
 @modal/(..)i/flow/login/page.tsx 와 i/flow/login/page.tsx는 결국 같은 내용을 화면에 렌더링 하는데 이럴때는 같은 (beforeLogin)을 두고 _component를 두어 각 페이지에서 하나의 컴포넌트를 import하여 사용하면 된다.
 결국 실제 라우터에 관여 하지 않는 폴더는 (폴더이름), _component 의 두가지 경우가 있다.
 
 
-- ### useSelectedLayoutSegment
+# 여러가지 Hook
+
+### useSelectedLayoutSegment
 현재 나의 라우터 위치를 알아낼 수 있는 훅을 next에서 지원해 준다.
 useSelectedLayoutSegment는 서브 컴포넌트가 아닌 클라이언트 컴포넌트에서 가능 하다.
 
@@ -134,7 +135,7 @@ const segment = useSelectedLayoutSegments();
 console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['compose', 'tweet'];
 ```
 
-- ### usePathname()
+### usePathname()
 
 const pathname = usePathname() </br>
 pathname에 따른 렌더링 분기처리
@@ -162,7 +163,7 @@ export default function RightSearchZone() {
 }
 ```
 
-- ### useSearchParam()
+### useSearchParam()
 query string 받아오기
 
 ```shell
@@ -179,7 +180,105 @@ query string 받아오기
 
   }
 ```
-- ### 클라이언트 컴포넌트와 서버컴포넌트로 구성하기
+
+## useSession()
+로그인 후 내 정보를 useSession에서 불러 올 수 있다.
+
+```shell
+import {signIn} from "next-auth/react"; // 프론트엔드 서버 사용시
+
+const { data: me } = useSession();
+
+const onLogout = () => {
+    signOut({ redirect: false }) //redirect를 true로 하면 서버에서 redirect를 실행 한다.
+      .then(() => {
+        router.replace('/');
+      });
+  };
+```
+
+다른 사용법 예제
+```shell
+import Main from "@/app/(beforeLogin)/_component/Main";
+import {auth} from "@/auth";
+import {redirect} from "next/navigation";
+
+export default async function Home() {
+  const session = await auth();
+  if (session?.user) {
+    redirect('/home');
+    return null;
+  }
+  return (
+    <Main />
+  )
+}
+
+```
+
+현재 세션 값을 이용하여 로그인 여부에 따라 화면에서 안보이게 보이게 컨트롤이 가능하다.
+
+```shell
+const session = await auth();
+```
+
+
+
+### useFormState와 useFormStatus 적용하기
+
+# 그 외
+
+## new URLSearchParams
+
+URLSearchParams는 URL 쿼리 문자열을 다루는 데 유용한 인터페이스를 제공합니다.
+
+```shell
+    import { useRouter } from 'next/router';
+    
+    const MyPage = () => {
+    
+      const pathname = usePathname()
+      const searchParams = useSearchParams();
+      const router = useRouter();
+    
+      const onChangeFollow = () => {
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.set('pf', 'on');
+        router.replace(`/search?${newSearchParams.toString()}`);
+      }
+      const onChangeAll = () => {
+        const newSearchParams = new URLSearchParams(searchParams);
+        newSearchParams.delete('pf');
+        router.replace(`/search?${newSearchParams.toString()}`);
+      }
+    
+      return (
+        <div>
+          ...
+        </div>
+      );
+    };
+    
+    export default MyPage;
+
+```
+
+### queryString 'pf=on' 값을 추가 할때
+
+```shell
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('pf', 'on');
+```
+### queryString 'pf' 값을 삭제 할때
+
+```shell
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete('pf');
+```
+
+이렇게하면 주어진 URL의 쿼리 문자열을 다룰 수 있습니다.
+
+### 클라이언트 컴포넌트와 서버컴포넌트로 구성하기
 
 PostArtcle 컴포넌트에서 자식 프롭스로 children을 받아 화면에 표시해 주고 있다. </br>
 PostArtcle 컴포넌트는 클라이언트 컴포넌트이다.
@@ -304,12 +403,8 @@ export default function Page({ params }: Props) {
 }
 ```
 
-## Server Actions
-- 회원가입에 적용하기(Next 14부터 가능)
-- 클라이언트 컴포넌트에서도 사용 가능
-- useFormState와 useFormStatus 적용하기
 
-## next-auth@5
+# next-auth@5
 
 ```shell
 npm install next-auth@5 @auth/core
@@ -621,96 +716,7 @@ const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
   };
 ```
 
-## useSession()
-로그인 후 내 정보를 useSession에서 불러 올 수 있다.
 
-```shell
-import {signIn} from "next-auth/react"; // 프론트엔드 서버 사용시
-
-const { data: me } = useSession();
-
-const onLogout = () => {
-    signOut({ redirect: false }) //redirect를 true로 하면 서버에서 redirect를 실행 한다.
-      .then(() => {
-        router.replace('/');
-      });
-  };
-```
-
-다른 사용법 예제
-```shell
-import Main from "@/app/(beforeLogin)/_component/Main";
-import {auth} from "@/auth";
-import {redirect} from "next/navigation";
-
-export default async function Home() {
-  const session = await auth();
-  if (session?.user) {
-    redirect('/home');
-    return null;
-  }
-  return (
-    <Main />
-  )
-}
-
-```
-
-현재 세션 값을 이용하여 로그인 여부에 따라 화면에서 안보이게 보이게 컨트롤이 가능하다.
-
-```shell
-const session = await auth();
-```
-
-## new URLSearchParams
-
-URLSearchParams는 URL 쿼리 문자열을 다루는 데 유용한 인터페이스를 제공합니다.
-
-```shell
-    import { useRouter } from 'next/router';
-    
-    const MyPage = () => {
-    
-      const pathname = usePathname()
-      const searchParams = useSearchParams();
-      const router = useRouter();
-    
-      const onChangeFollow = () => {
-        const newSearchParams = new URLSearchParams(searchParams);
-        newSearchParams.set('pf', 'on');
-        router.replace(`/search?${newSearchParams.toString()}`);
-      }
-      const onChangeAll = () => {
-        const newSearchParams = new URLSearchParams(searchParams);
-        newSearchParams.delete('pf');
-        router.replace(`/search?${newSearchParams.toString()}`);
-      }
-    
-      return (
-        <div>
-          ...
-        </div>
-      );
-    };
-    
-    export default MyPage;
-
-```
-
-### queryString 'pf=on' 값을 추가 할때
-
-```shell
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set('pf', 'on');
-```
-### queryString 'pf' 값을 삭제 할때
-
-```shell
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.delete('pf');
-```
-
-이렇게하면 주어진 URL의 쿼리 문자열을 다룰 수 있습니다.
 
 
 ## .env
