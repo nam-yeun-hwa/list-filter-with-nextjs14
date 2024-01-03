@@ -181,7 +181,7 @@ query string 받아오기
   }
 ```
 
-## useSession()
+## next-auth@5의 useSession() 
 로그인 후 내 정보를 useSession에서 불러 올 수 있다.
 
 ```shell
