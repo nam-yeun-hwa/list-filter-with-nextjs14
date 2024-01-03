@@ -8,13 +8,13 @@ Next.js 앱의 컴포넌트와 페이지에 대해 생각하는 방식에 큰 �
 Next.js 13 버전 이후부터는 Using App Router와 Using Pages Router을 제공 합니다.
 기존버전의 경우는 Pages Router를 사용했다면 13버전 이후로 새롭게 App Router가 추가 되었습니다.
 
-## App Router 뭔가요? </br>
+### App Router 뭔가요? </br>
 App 디렉터리는 Next.js에서 라우트를 처리하고 뷰를 렌더링하기 위한 새로운 전략입니다. 
 
 기존의 Next.js에서는 여러 파일에 나누어진 페이지를 생성하고 매핑하는 방식을 사용했습니다. 이로 인해 복잡성이 증가할 수 있었습니다. App Router는 페이지 구조를 더 단순화하고 일관성을 증가시킴으로써 개발자 경험을 향상시킬 수 있습니다.
 App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이동을 보다 효율적으로 관리할 수 있게 합니다. 이로써 라우팅 구성이 더욱 직관적이고 관리하기 쉬워집니다.</br></br>
 
-## App Router 가장 크게 다른 점
+### App Router 가장 크게 다른 점
   - 각종 폴더 유형 추가로 디렉토리 라우팅이 편해짐
   - 레이아웃 기능
   - 페이지별 권한 체크(next-auth@5)
@@ -45,7 +45,7 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
 
 <img width="268" alt="스크린샷 2023-12-08 오후 8 57 13" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b0147a5f-eb00-4821-90ed-cc692a397a98">
 
-## Routing Group
+### Routing Group
   - 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 
   - 실제 주소에는 관여하지 않는다.
   - 소괄호를 사용하여 폴더이름을 지정한다.
@@ -135,7 +135,7 @@ const segment = useSelectedLayoutSegments();
 console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['compose', 'tweet'];
 ```
 
-### usePathname()
+### usePathname
 
 const pathname = usePathname() </br>
 pathname에 따른 렌더링 분기처리
@@ -163,7 +163,7 @@ export default function RightSearchZone() {
 }
 ```
 
-### useSearchParam()
+### useSearchParam
 query string 받아오기
 
 ```shell
@@ -181,7 +181,7 @@ query string 받아오기
   }
 ```
 
-## next-auth@5의 useSession() 
+### next-auth@5의 useSession
 로그인 후 내 정보를 useSession에서 불러 올 수 있다.
 
 ```shell
@@ -228,7 +228,7 @@ const session = await auth();
 
 # 그 외
 
-## new URLSearchParams
+### new URLSearchParams
 
 URLSearchParams는 URL 쿼리 문자열을 다루는 데 유용한 인터페이스를 제공합니다.
 
@@ -263,13 +263,13 @@ URLSearchParams는 URL 쿼리 문자열을 다루는 데 유용한 인터페이�
 
 ```
 
-### queryString 'pf=on' 값을 추가 할때
+#### queryString 'pf=on' 값을 추가 할때
 
 ```shell
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set('pf', 'on');
 ```
-### queryString 'pf' 값을 삭제 할때
+#### queryString 'pf' 값을 삭제 할때
 
 ```shell
     const newSearchParams = new URLSearchParams(searchParams);
@@ -384,7 +384,7 @@ export default function Post({ noImage }: Props) {
 }
 ```
 
-## 다이나믹 라우팅 슬러그들의 value 값 받기
+### 다이나믹 라우팅 슬러그들의 value 값 받기
 
 props에서 params속성안에 슬러그들의 값을 참조 할수 있다.
 
@@ -403,8 +403,9 @@ export default function Page({ params }: Props) {
 }
 ```
 
+# 사용된 라이브러리
 
-# next-auth@5
+### next-auth@5
 
 ```shell
 npm install next-auth@5 @auth/core
@@ -415,15 +416,150 @@ npm install next-auth@5 @auth/core
 - 클라이언트에서 내 정보 가져올 때는 useSession(), 서버에서는 await auth();
 - session 안 내 정보는 email, name, image만 가능(헷갈리니 주의)
 
-## 페이지 접근 권한
+### 페이지 접근 권한
 middleware.ts로 페이지 접근 제어
 
 - (afterLogin) 내부의 [username]과 [username]/status/[id] 페이지는 모두 공개
 - 그 외 (afterLogin) 페이지들은 로그인한 사람만 접근 가능
 
+### Auth.js
+
+로그인과 로그아웃시 CredentialsProvider 와 NextAuth.js 사용
+- 로그인
+- 로그아웃
+- 현재 내 정보 불러오기
+
+### 1. src 폴더내에 auth.js 생성
+
+https://next-auth.js.org/providers/credentials
+
+로그인시 CredentialsProvider의 함수가 호출된다.
+pages에 로그인 페이지 라우터를 등록 해주도록 한다.
+     
+```shell
+import NextAuth from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials";
+import {NextResponse} from "next/server";
 
 
-## 이벤트 캡쳐링 onClickCapture
+export const {
+  handlers: { GET, POST }, // auth에서 제공해주는 api 라우트  
+  auth, //auth() 함수를 호출하면 내가 로그인을 했는지 안했는지 알아 낼수 있다.
+  signIn, //로그인 하는용
+} = NextAuth({
+  pages: {
+    signIn: '/i/flow/login', //로그인 라우터 
+    newUser: '/i/flow/signup', //회원가입 페이지 라우터
+  },
+  providers: [
+    CredentialsProvider({
+      async authorize(credentials) {
+        const authResponse = await fetch(`${process.env.AUTH_URL}/api/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: credentials.username,
+            password: credentials.password,
+          }),
+        })
+
+        if (!authResponse.ok) {
+          return null
+        }
+
+        const user = await authResponse.json()
+        console.log('user', user);
+        return {
+          email: user.id,
+          name: user.nickname,
+          image: user.image,
+          ...user,
+        }
+      },
+    }),
+  ]
+});
+```
+### 2. src 폴더내에 middleware.ts 생성
+
+아래 등록되어진 라우터들의 페이지에 접속하기 전에 아래 middleware함수가 먼저 실행 된다.
+예) 로그인했으면 통과 로그인을 안했으면 redirect로 로그인 페이지로 연결
+
+```shell
+import { auth } from "./auth"
+import {NextResponse} from "next/server";
+
+export async function middleware() {
+
+  로그아웃 후 로그인이 되어야 하는 페이지 주소를 입력하면 로그인 페이지로 이동하도록 하기
+- session이 없을 경우 로그인 페이지로 이동
+  const session = await auth();
+  if (!session) {
+    return NextResponse.redirect('http://localhost:3000/i/flow/login');
+  }
+}
+
+// matcher은 미들웨어를 적용할 라우터들이며 공통적으로 로그인을 해야만 접근이 가능한 라우터들이다.
+export const config = {
+  matcher: ['/compose/tweet', '/home', '/explore', '/messages', '/search'],
+}
+```
+
+### api 라우터 실제 경로 설정 
+api 라우터는 브라우저 라우터처럼 실제 주소가 된다.
+
+<img width="203" alt="스크린샷 2023-12-08 오후 5 25 30" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/25bbdaee-d378-4c84-8ec7-7f3390f5c806">
+
+위 경로중 [...folderName]는 catch all route 이다. 
+[...folderName] 경로에는 어떤 경로든 들어갈 수 있다. 
+
+|Route|Example|URL|params|
+|---|---|---|---|
+|pages/shop/[...slug].js|	/shop/a|	{ slug: ['a'] }|
+|pages/shop/[...slug].js|	/shop/a/b|	{ slug: ['a', 'b'] }|
+|pages/shop/[...slug].js|	/shop/a/b/c|	{ slug: ['a', 'b', 'c'] }|
+
+https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments
+
+router.ts 
+
+```shell
+export { GET, POST } from '@/auth';
+```
+GET, POST의 함수를 구현하지 않고 auth에서 제공하는 GET, POST를 사용 한다. 
+
+
+로그인 페이지에서 아이디와 페스워드 등을 입력호 onSubmit을 호출해줄때 signIn을 사용해 준다.
+
+```shell
+
+import {signIn} from "next-auth/react"; // 프론트엔드 서버 사용시
+import {signIn} from "@/auth"; //서버 컴포넌트에서 사용
+
+const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    try {
+      await signIn("credentials", {
+        username: id,
+        password,
+        redirect: false, //redirect를 true로 하면 서버에서 redirect를 실행 한다.
+      })
+      router.replace('/home');
+    } catch (err) {
+      console.error(err);
+      setMessage('아이디와 비밀번호가 일치하지 않습니다.');
+    }
+  };
+  const onClickClose = () => {
+    router.back();
+  };
+```
+
+
+### 이벤트 캡쳐링 onClickCapture
 사용 컴포넌트 내에서 <Link/> 컴포넌트와 onClick이 동시에 사용되어 이벤트가 상위나 하위로 옮겨 가는 경우에 아래와 같이 사용할 수 있다.
 
 - Capturing Phase (캡처링 단계): 이벤트가 가장 먼 조상 요소에서 시작하여 이벤트가 발생한 요소까지 이동
@@ -435,9 +571,7 @@ middleware.ts로 페이지 접근 제어
   <article onClickCapture={onClick}/>
 ```
 
-# 사용된 라이브러리
-
-## Dayjs 라이브러리
+### Dayjs 라이브러리
 
 JavaScript에서 날짜 및 시간을 다루기 위한 경량 라이브러리입니다.
 
@@ -542,7 +676,7 @@ const now = dayjs();
 
 
 
-## 조건부에 따른 클래스 합성 라이브러리 cx
+### 조건부에 따른 클래스 합성 라이브러리 cx
 
 변수를 만들고 변수의 boolean 상태 값이 true일때 해당 스타일이 적용 되도록 한다.
 
@@ -580,146 +714,11 @@ css 사용 예)
   }
 ```
 
-## Auth.js
-
-로그인과 로그아웃시 CredentialsProvider 와 NextAuth.js 사용
-- 로그인
-- 로그아웃
-- 현재 내 정보 불러오기
-
-  ### 1. src 폴더내에 auth.js 생성
-
-https://next-auth.js.org/providers/credentials
-
-로그인시 CredentialsProvider의 함수가 호출된다.
-pages에 로그인 페이지 라우터를 등록 해주도록 한다.
-     
-```shell
-import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials";
-import {NextResponse} from "next/server";
-
-
-export const {
-  handlers: { GET, POST }, // auth에서 제공해주는 api 라우트  
-  auth, //auth() 함수를 호출하면 내가 로그인을 했는지 안했는지 알아 낼수 있다.
-  signIn, //로그인 하는용
-} = NextAuth({
-  pages: {
-    signIn: '/i/flow/login', //로그인 라우터 
-    newUser: '/i/flow/signup', //회원가입 페이지 라우터
-  },
-  providers: [
-    CredentialsProvider({
-      async authorize(credentials) {
-        const authResponse = await fetch(`${process.env.AUTH_URL}/api/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: credentials.username,
-            password: credentials.password,
-          }),
-        })
-
-        if (!authResponse.ok) {
-          return null
-        }
-
-        const user = await authResponse.json()
-        console.log('user', user);
-        return {
-          email: user.id,
-          name: user.nickname,
-          image: user.image,
-          ...user,
-        }
-      },
-    }),
-  ]
-});
-```
-### 2. src 폴더내에 middleware.ts 생성
-
-아래 등록되어진 라우터들의 페이지에 접속하기 전에 아래 middleware함수가 먼저 실행 된다.
-예) 로그인했으면 통과 로그인을 안했으면 redirect로 로그인 페이지로 연결
-
-```shell
-import { auth } from "./auth"
-import {NextResponse} from "next/server";
-
-export async function middleware() {
-
-  로그아웃 후 로그인이 되어야 하는 페이지 주소를 입력하면 로그인 페이지로 이동하도록 하기
-- session이 없을 경우 로그인 페이지로 이동
-  const session = await auth();
-  if (!session) {
-    return NextResponse.redirect('http://localhost:3000/i/flow/login');
-  }
-}
-
-// matcher은 미들웨어를 적용할 라우터들이며 공통적으로 로그인을 해야만 접근이 가능한 라우터들이다.
-export const config = {
-  matcher: ['/compose/tweet', '/home', '/explore', '/messages', '/search'],
-}
-```
-
-## api 라우터 실제 경로 설정 
-api 라우터는 브라우저 라우터처럼 실제 주소가 된다.
-
-<img width="203" alt="스크린샷 2023-12-08 오후 5 25 30" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/25bbdaee-d378-4c84-8ec7-7f3390f5c806">
-
-위 경로중 [...folderName]는 catch all route 이다. 
-[...folderName] 경로에는 어떤 경로든 들어갈 수 있다. 
-
-|Route|Example|URL|params|
-|---|---|---|---|
-|pages/shop/[...slug].js|	/shop/a|	{ slug: ['a'] }|
-|pages/shop/[...slug].js|	/shop/a/b|	{ slug: ['a', 'b'] }|
-|pages/shop/[...slug].js|	/shop/a/b/c|	{ slug: ['a', 'b', 'c'] }|
-
-https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments
-
-router.ts 
-
-```shell
-export { GET, POST } from '@/auth';
-```
-GET, POST의 함수를 구현하지 않고 auth에서 제공하는 GET, POST를 사용 한다. 
-
-
-로그인 페이지에서 아이디와 페스워드 등을 입력호 onSubmit을 호출해줄때 signIn을 사용해 준다.
-
-```shell
-
-import {signIn} from "next-auth/react"; // 프론트엔드 서버 사용시
-import {signIn} from "@/auth"; //서버 컴포넌트에서 사용
-
-const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-    setMessage('');
-    try {
-      await signIn("credentials", {
-        username: id,
-        password,
-        redirect: false, //redirect를 true로 하면 서버에서 redirect를 실행 한다.
-      })
-      router.replace('/home');
-    } catch (err) {
-      console.error(err);
-      setMessage('아이디와 비밀번호가 일치하지 않습니다.');
-    }
-  };
-  const onClickClose = () => {
-    router.back();
-  };
-```
 
 
 
 
-## .env
+### .env
 - 브라우저에서 접근 가능한 환경 변수는 NEXT_PUBLIC 으로 시작하면 된다.
 
 ```shell
