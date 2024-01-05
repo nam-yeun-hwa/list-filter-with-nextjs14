@@ -8,15 +8,15 @@ Next.js 앱의 컴포넌트와 페이지에 대해 생각하는 방식에 큰 �
 Next.js 13 버전 이후부터는 Using App Router와 Using Pages Router을 제공 합니다.
 기존버전의 경우는 Pages Router를 사용했다면 13버전 이후로 새롭게 App Router가 추가 되었습니다.
 
-### App Router 뭔가요? </br>
+# App Router 뭔가요? </br>
 App 디렉터리는 Next.js에서 라우트를 처리하고 뷰를 렌더링하기 위한 새로운 전략입니다. 
 
 기존의 Next.js에서는 여러 파일에 나누어진 페이지를 생성하고 매핑하는 방식을 사용했습니다. 이로 인해 복잡성이 증가할 수 있었습니다. App Router는 페이지 구조를 더 단순화하고 일관성을 증가시킴으로써 개발자 경험을 향상시킬 수 있습니다.
 App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이동을 보다 효율적으로 관리할 수 있게 합니다. 이로써 라우팅 구성이 더욱 직관적이고 관리하기 쉬워집니다.</br></br>
 
-### App Router 가장 크게 다른 점
+# App Router 가장 크게 다른 점
   - 각종 폴더 유형 추가로 디렉토리 라우팅이 편해짐
-  - 레이아웃 기능
+  - 레이아웃 기능(layout.tsx 컴포넌트로 공통 레이아웃 적용)
   - 페이지별 권한 체크(next-auth@5)
   - 서버 컴포넌트 분리로 인한 최적화 </br>
     서버 컴포넌트를 설명 하자면 넥스트 서버에서 HTML을 미리 렌더링해서 프론트 또는 브라우저로 완성된 HTML를 미리 보내줍니다. </br>
@@ -25,25 +25,6 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
   - 데이터 캐시
   - 서버 액션
 
-
-# 프로젝트 src 폴더 설명
-- layout.tsx : 상위 header, bottom등 공통으로 위치하는 컴포넌트들을 배치해 준다.
-  - 페이지 내부 app에 들어있는 페이지 안에서는 따로 layout.tsx를 생성하여 사용하면 페이지당 공통 레이아웃이 가능하다.
-  - globals.css 공통적으로 사용하는 css를 layout.tsx에 넣어준다.
-    
-- app : Next App Router사용. 주소와 관련 있는 파일들이 위치한다.
-  - app 폴더 안에서 다이나믹 라우팅(slug : [폴더이름])를 지원해 준다. </br>
-  - 사용법은 [다이나믹라우팅 이름] 으로 폴더명으로 넣어준다.
-  - 예) [username]/status/[id] 라는 주소는 아래와 같이 경로로 만들어 준다.
- 
-<img width="203" alt="스크린샷 2023-12-08 오후 5 25 30" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b414bbc8-b79e-4af5-8e3a-79034ff0857d">
-
-
-- 각각 username,id값으로 들어온 주소에 대해 page.tsx로 렌더링 된다.
-- app의 경로에 해당하지 않는 페이지는 not-found.tsx로 대응하여 페이지를 적용해 줄수 있다. 폴더 경로는 src에 위치
-
-
-<img width="268" alt="스크린샷 2023-12-08 오후 8 57 13" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b0147a5f-eb00-4821-90ed-cc692a397a98">
 
 ### Routing Group
   - 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 
@@ -64,6 +45,8 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
   <img width="239" alt="스크린샷 2023-12-08 오후 10 10 43" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/2e3dc802-f9e8-4092-aaac-b3b7a1ed6498">
   
   그리고 layout.tsx에 modal을 props로 받아주어야 한다.
+
+**📄 layout.tsx**
   
   ```shell
   export default function layout({children, modal}){
@@ -91,12 +74,6 @@ export default function Default() {
 
 <img width="174" alt="스크린샷 2023-12-17 오후 3 11 22" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/05b87351-8b31-436f-aa4b-afe8458df18a">
 
-### 서버 컴포넌트에서는 useState, useEffect등을 사용할 수 없다. 
-
-  - page.tsx, layout.tsx 등은 모두 서버 컴포넌트이기 때문에 화면에 렌더링 된후에 사용하는 useState나 useEffect를 사용할 수 없다. <br/>
-  - 이런 경우에는 서버 컴포넌트를 클라이언트 컴포넌트도 변경 해주어야 한다. <br/>
-  - 클라이언트 컴포넌트로 변경하는 방법은 page.tsx나 layout.tsx 상단에 "use client"; 를 추가해 주면 된다. <br/>
-
 ### Interception Routes <br/>
   - 서로 주소가 다른 page.tsx를 띄울수 있게 해준다.
   - layout.tsx 에서 @modal이하 page.tsx는 @modal에서 뜨고 나머지 page.tsx는 children에서 뜨게 해준다. </br></br>
@@ -114,13 +91,17 @@ export default function Default() {
 
   (beforeLogin) 폴더의 page.tsx의 링크 이동을 눌러 페이지가 지동할 경우에는 interceptor된 @modal/(..)i/flow/login/page.tsx으로 뜨고 직접 /i/flow/login/ 주소를 입력하거나 interceptor된 상태에서 새로고침을 하면 interceptor되지 않은 원 /i/flow/login/page.tsx 페이지가 화면에 보인다.
 
-
 ### private 폴더 _component 
 app폴더 하위 (beforeLogin)폴더 내부에 _component폴더를 사용하여 내부에 컴포넌트를 만들면 실제 주소에는 관여하지 않고 공통되는 페이지를 화면에 보여 줄수 있다. 
 @modal/(..)i/flow/login/page.tsx 와 i/flow/login/page.tsx는 결국 같은 내용을 화면에 렌더링 하는데 이럴때는 같은 (beforeLogin)을 두고 _component를 두어 각 페이지에서 하나의 컴포넌트를 import하여 사용하면 된다.
 결국 실제 라우터에 관여 하지 않는 폴더는 (폴더이름), _component 의 두가지 경우가 있다.
 
+### 서버 컴포넌트에서는 useState, useEffect등을 사용할 수 없다. 
 
+  - page.tsx, layout.tsx 등은 모두 서버 컴포넌트이기 때문에 화면에 렌더링 된후에 사용하는 useState나 useEffect를 사용할 수 없다. <br/>
+  - 이런 경우에는 서버 컴포넌트를 클라이언트 컴포넌트도 변경 해주어야 한다. <br/>
+  - 클라이언트 컴포넌트로 변경하는 방법은 page.tsx나 layout.tsx 상단에 "use client"; 를 추가해 주면 된다. <br/>
+  
 # 여러가지 Hook
 
 ### useSelectedLayoutSegment
@@ -181,7 +162,7 @@ query string 받아오기
   }
 ```
 
-### next-auth@5의 useSession
+### useSession(next-auth@5)
 로그인 후 내 정보를 useSession에서 불러 올 수 있다.
 
 ```shell
@@ -228,7 +209,26 @@ const session = await auth();
 
 # 그 외
 
-### new URLSearchParams
+### 다이나믹 라우팅 슬러그들의 value 값 받기
+
+props에서 params속성안에 슬러그들의 값을 참조 할수 있다.
+
+```shell
+type Props = {
+  params: { username: string, id: string, photoId: string }
+}
+
+export default function Page({ params }: Props) {
+  params.username // elonmusk
+  params.id // 1
+  params.photoId // 1
+  return (
+    <Home />
+  )
+}
+```
+
+### new URLSearchParams 사용하기
 
 URLSearchParams는 URL 쿼리 문자열을 다루는 데 유용한 인터페이스를 제공합니다.
 
@@ -384,24 +384,7 @@ export default function Post({ noImage }: Props) {
 }
 ```
 
-### 다이나믹 라우팅 슬러그들의 value 값 받기
 
-props에서 params속성안에 슬러그들의 값을 참조 할수 있다.
-
-```shell
-type Props = {
-  params: { username: string, id: string, photoId: string }
-}
-
-export default function Page({ params }: Props) {
-  params.username // elonmusk
-  params.id // 1
-  params.photoId // 1
-  return (
-    <Home />
-  )
-}
-```
 
 # 사용된 라이브러리
 
