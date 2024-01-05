@@ -394,7 +394,7 @@ Suspense는 React Component 내부에서 비동기적으로 다른 요소를 불
 Suspense를 사용해서 컴포넌트 내부에서 비동기적 데이터가 불러와지는 중에는 Suspense의 fallback Prop을 통해 loading.tsx 컴포넌트를 화면에 보여줍니다.
 
 
-### errorBoundary 컴포넌트
+### errorBoundary 컴포넌트(서버컴포넌트의 에러에 대응)
 
 errorBoundary 하위 컴포넌트 트리의 어디에서든 자바스크립트 에러를 기록하며 깨진 컴포넌트 트리 대신 폴백 UI를 보여주는 React 컴포넌트입니다.
 Error Boundary는 React Component 내부에서 에러가 발생한 경우 사용자에게 잘못된 UI나 빈 화면을 보여주는 대신 미리 정의해 둔 Fallback UI를 화면에 보여주기 위한 컴포넌트입니다.
@@ -403,7 +403,19 @@ Error Boundary는 React Component 내부에서 에러가 발생한 경우 사용
 <img width="653" alt="스크린샷 2024-01-05 오후 5 50 48" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/2273dde5-c195-4368-a375-87152dd51072">
 <img width="652" alt="스크린샷 2024-01-05 오후 5 58 54" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b54dd14a-cd8a-43c2-91d7-2d470ea79d02">
 
+### suspense와 errorBoundary 컴포넌트를 함께 사용시
 
+```shell
+const User = () => (
+  <ErrorBoundary FallbackComponent={UserProfileFallback}>
+    <Suspense fallback={<UserProfileLoading />}>
+      <UserProfile />
+    </Suspense>
+  </ErrorBoundary>
+);
+
+export default User;
+```
 
 # 사용된 라이브러리
 
