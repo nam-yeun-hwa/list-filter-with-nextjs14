@@ -8,13 +8,13 @@ Next.js 앱의 컴포넌트와 페이지에 대해 생각하는 방식에 큰 �
 Next.js 13 버전 이후부터는 Using App Router와 Using Pages Router을 제공 합니다.
 기존버전의 경우는 Pages Router를 사용했다면 13버전 이후로 새롭게 App Router가 추가 되었습니다.
 
-# App Router 뭔가요? </br>
+### App Router 뭔가요? </br>
 App 디렉터리는 Next.js에서 라우트를 처리하고 뷰를 렌더링하기 위한 새로운 전략입니다. 
 
 기존의 Next.js에서는 여러 파일에 나누어진 페이지를 생성하고 매핑하는 방식을 사용했습니다. 이로 인해 복잡성이 증가할 수 있었습니다. App Router는 페이지 구조를 더 단순화하고 일관성을 증가시킴으로써 개발자 경험을 향상시킬 수 있습니다.
 App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이동을 보다 효율적으로 관리할 수 있게 합니다. 이로써 라우팅 구성이 더욱 직관적이고 관리하기 쉬워집니다.</br></br>
 
-# App Router 가장 크게 다른 점
+### App Router 가장 크게 다른 점
   - 각종 폴더 유형 추가로 디렉토리 라우팅이 편해짐
   - 레이아웃 기능(layout.tsx 컴포넌트로 공통 레이아웃 적용)
   - 페이지별 권한 체크(next-auth@5)
@@ -25,6 +25,7 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
   - 데이터 캐시
   - 서버 액션
 
+# Next.js 13 버전에서 추가된 기능 설명
 
 ### Routing Group
   - 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 
@@ -61,9 +62,10 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
 
 layout.tsx에서 page.tsx는 children으로 modal은 modal로 렌더링 된다.
 
-### default.tsx
-parallel router 사용시 @modal에서 경로에서 default.tsx 꼭 넣어주어야 함!!!
-@madal폴더에도 page.tsx가 필요한데 넣을 내용이 없을 경우에는 default.tsx를 추가 해주어야 오류가 뜨지 않는다. 
+**📄 default.tsx**
+
+parallel router 사용시 @modal에서 경로에서 default.tsx 꼭 넣어주어야 함!!! </br>
+@madal폴더에도 page.tsx가 필요한데 넣을 내용이 없을 경우에는 default.tsx를 추가 해주어야 오류가 뜨지 않는다. </br>
 잘 살펴보면 @modal에서 모달로 띄우는 경로과 배경이 되는 경로가 같다.
 
 ```shell
@@ -119,7 +121,7 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 ### usePathname
 
 const pathname = usePathname() </br>
-pathname에 따른 렌더링 분기처리
+- pathname에 따른 렌더링 분기처리
   
 ```shell
 "use client";
