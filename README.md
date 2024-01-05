@@ -386,6 +386,23 @@ export default function Post({ noImage }: Props) {
 }
 ```
 
+### Suspense 컴포넌트
+Suspense는 React Component 내부에서 비동기적으로 다른 요소를 불러올 때 해당 요소가 불러와질 때까지 Component의 렌더링을 잠시 멈추는 용도로 사용할 수 있는 컴포넌트입니다.
+
+<img width="650" alt="스크린샷 2024-01-05 오후 5 48 06" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/9d06f3f8-5452-4596-a4e9-7353db70d1b0">
+
+Suspense를 사용해서 컴포넌트 내부에서 비동기적 데이터가 불러와지는 중에는 Suspense의 fallback Prop을 통해 loading.tsx 컴포넌트를 화면에 보여줍니다.
+
+
+### errorBoundary 컴포넌트
+
+errorBoundary 하위 컴포넌트 트리의 어디에서든 자바스크립트 에러를 기록하며 깨진 컴포넌트 트리 대신 폴백 UI를 보여주는 React 컴포넌트입니다.
+Error Boundary는 React Component 내부에서 에러가 발생한 경우 사용자에게 잘못된 UI나 빈 화면을 보여주는 대신 미리 정의해 둔 Fallback UI를 화면에 보여주기 위한 컴포넌트입니다.
+
+폴더 경로에 error.tsx를 만들어 주고 errorBoundary 컴포넌트의 fallback 컴포넌트를 연결해 줍니다.
+<img width="653" alt="스크린샷 2024-01-05 오후 5 50 48" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/2273dde5-c195-4368-a375-87152dd51072">
+<img width="652" alt="스크린샷 2024-01-05 오후 5 58 54" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b54dd14a-cd8a-43c2-91d7-2d470ea79d02">
+
 
 
 # 사용된 라이브러리
@@ -828,4 +845,8 @@ align-content는 flex-wrap과 관련된 속성으로 아이템이 flex-wrap에 �
 
   
 
-참고 - https://www.inflearn.com/course/lecture?courseSlug=next-react-query-sns%EC%84%9C%EB%B9%84%EC%8A%A4&unitId=194471&tab=curriculum
+[참고]
+- https://www.inflearn.com/course/lecture?courseSlug=next-react-query-sns%EC%84%9C%EB%B9%84%EC%8A%A4&unitId=194471&tab=curriculum
+[참고]
+- https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
+- https://nextjs.org/docs/app/building-your-application/routing/error-handling
