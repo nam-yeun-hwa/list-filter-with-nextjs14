@@ -393,7 +393,7 @@ Suspense는 React Component 내부에서 비동기적으로 다른 요소를 불
 
 Suspense를 사용해서 컴포넌트 내부에서 비동기적 데이터가 불러와지는 중에는 Suspense의 fallback Prop을 통해 loading.tsx 컴포넌트를 화면에 보여줍니다.
 
-**suspense 컴포넌트 사용시 장점**
+**suspense 컴포넌트 사용시 장점** </br>
 서버에서 로딩이 필요한 부분과 로딩이 필요하지 않은 부분을 나누어 로딩이 필요하지 않은 부분만 클라이언트로 보내주고 로딩이 필요한 경우에는 로딩 후 클라이언트로 보내주는 스트리밍 방식으로 여러번 클라이언트로 보내줄 수 있다.
 로딩이 필요한 부분만 서스펜스 컴포넌트로 감싸주는 식으로 분리 하여 사용 할 수 있다.
 
@@ -403,7 +403,7 @@ Suspense를 사용해서 컴포넌트 내부에서 비동기적 데이터가 불
 - suspense가 로딩 될때의 로딩
 - reace-query에서 api를 호출할때의 로딩
 
-상위를 <Suspense> 컴포넌트로 감싸주고 자식 컴포넌트에서 useSuspenseQuery를 사용하면 상위 Suspense 컴포넌트의 fallback의 loading ui를 사용 할 수 있다.
+상위를 Suspense 컴포넌트로 감싸주고 자식 컴포넌트에서 useSuspenseQuery를 사용하면 상위 Suspense 컴포넌트의 fallback의 loading ui를 사용 할 수 있다.
 
 
 ### errorBoundary 컴포넌트(서버컴포넌트의 에러에 대응)
@@ -510,7 +510,7 @@ export const {
 ```
 ### 2. src 폴더내에 middleware.ts 생성
 
-아래 등록되어진 라우터들의 페이지에 접속하기 전에 아래 middleware함수가 먼저 실행 된다.
+아래 등록되어진 라우터들의 페이지에 접속하기 전에 아래 middleware함수가 먼저 실행 된다. </br>
 예) 로그인했으면 통과 로그인을 안했으면 redirect로 로그인 페이지로 연결
 
 ```shell
