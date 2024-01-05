@@ -403,7 +403,7 @@ Suspense를 사용해서 컴포넌트 내부에서 비동기적 데이터가 불
 - suspense가 로딩 될때의 로딩
 - reace-query에서 api를 호출할때의 로딩
 
-상위를 Suspense 컴포넌트로 감싸주고 자식 컴포넌트에서 useSuspenseQuery를 사용하면 상위 Suspense 컴포넌트의 fallback의 loading ui를 사용 할 수 있다.
+상위를 Suspense 컴포넌트로 감싸주고 자식 컴포넌트에서 useSuspenseQuery 또는 useSuspenseInfinityQuery를 사용하면 상위 Suspense 컴포넌트의 fallback의 loading ui를 사용 할 수 있다.
 
 
 ### errorBoundary 컴포넌트(서버컴포넌트의 에러에 대응)
