@@ -429,6 +429,44 @@ const User = () => (
 export default User;
 ```
 
+### 구글 폰트 사용
+
+📄 최상위 layout.tsx
+
+```shell
+import { Inter } from 'next/font/google'
+ 
+const roboto_mono = Roboto_Mono({
+  subsets: ['latin'],
+  variable: '--font-roboto-mono',
+  display: 'swap',
+})
+ 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en" className={roboto_mono.variable}>
+      <body>
+        <h1>My App</h1>
+        <div>{children}</div>
+      </body>
+    </html>
+  )
+}
+```
+
+📄 test.module.css
+css 파일에서 `var(--font-roboto-mono)` 선언하여 사용
+
+```shell
+h1 {
+  font-family: var(--font-roboto-mono);
+}
+```
+
 # 사용된 라이브러리
 
 ### next-auth@5
