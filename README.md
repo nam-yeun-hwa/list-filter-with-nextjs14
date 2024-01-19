@@ -2,7 +2,7 @@
 - next.js 14.0.4
 - typescript
 
-# Next.js 13 버전에서 달라진 점
+# Next.js 14 버전에서 달라진 점
 
 Next.js 앱의 컴포넌트와 페이지에 대해 생각하는 방식에 큰 패러다임 변화를 가져왔습니다. 
 Next.js 13 버전 이후부터는 Using App Router와 Using Pages Router을 제공 합니다.
@@ -25,7 +25,7 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
   - 데이터 캐시
   - 서버 액션
 
-# Next.js 13 버전에서 추가된 기능 설명
+# Next.js 14 버전에서 추가된 기능 설명
 
 ### Routing Group
   - 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 
