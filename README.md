@@ -40,14 +40,17 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
 
 
 ### Parallel Route <br/>
-  page.tsx 두개를 동시에 보여주고 싶을때 사용한다. (기존 페이지를 배경으로 두고 모달을 새루운 경로로 띄울때 사용했다.) <br/>
-  아래처럼 page.tsx와 @modal 루트경로가 같아야 한다. <br/>
-  
+  - page.tsx 두개를 동시에 보여주고 싶을때 사용한다.
+  - 기존 페이지를 배경으로 두고 모달을 새루운 경로로 띄울때 사용했다. <br/>
+  - 아래처럼 page.tsx와 @modal 루트경로가 같아야 한다. <br/>
+  - 잘 살펴보면 같은 루트경로에서 @modal에서 모달로 띄우는 경로와 배경이 되는 페이지의 경로가 같다.
   <img width="239" alt="스크린샷 2023-12-08 오후 10 10 43" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/2e3dc802-f9e8-4092-aaac-b3b7a1ed6498">
   
-  그리고 layout.tsx에 modal을 props로 받아주어야 한다.
+  
 
 **📄 layout.tsx**
+- layout.tsx에 modal을 props로 받아주어야 한다.
+- layout.tsx에서 page.tsx는 children으로 modal은 modal로 렌더링 된다.
   
   ```shell
   export default function layout({children, modal}){
@@ -60,13 +63,9 @@ beforelogin의 경우에 layout.tsx를 생성하여 레이아웃을 지정해 �
   }
   ```
 
-layout.tsx에서 page.tsx는 children으로 modal은 modal로 렌더링 된다.
-
 **📄 default.tsx**
 
-parallel router 사용시 @modal에서 경로에서 default.tsx 꼭 넣어주어야 함!!! </br>
 @madal폴더에도 page.tsx가 필요한데 넣을 내용이 없을 경우에는 default.tsx를 추가 해주어야 오류가 뜨지 않는다. </br>
-잘 살펴보면 @modal에서 모달로 띄우는 경로과 배경이 되는 경로가 같다.
 
 ```shell
 export default function Default() {
