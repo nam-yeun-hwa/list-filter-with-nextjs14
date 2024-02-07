@@ -116,9 +116,18 @@ console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['co
 
 ### usePathname
 
+현재 라우더 주소가 "http://localhost:3000/categories/React/1" 이렇게 된다면 
+
+```shell
+const pathname = usePathname();
+console.log(pathname); 는 /categories/React/1 경로가 한번에 들어온다.
+```
+
 const pathname = usePathname() </br>
-- pathname에 따른 렌더링 분기처리
-  
+
+사용 예)
+pathname에 따른 화면 컴포넌트 렌더링 분기처리
+
 ```shell
 "use client";
 import {usePathname} from "next/navigation";
@@ -204,6 +213,7 @@ const session = await auth();
 
 
 ### useFormState와 useFormStatus 적용하기
+(---내용정리 필요---)
 
 # 그 외
 
@@ -221,7 +231,7 @@ export default function Page({ params }: Props) {
   params.id // 1
   params.photoId // 1
   return (
-    <Home />
+    ... 화면 컴포넌트 ...
   )
 }
 ```
@@ -277,6 +287,8 @@ URLSearchParams는 URL 쿼리 문자열을 다루는 데 유용한 인터페이�
 이렇게하면 주어진 URL의 쿼리 문자열을 다룰 수 있습니다.
 
 ### 클라이언트 컴포넌트와 서버컴포넌트로 구성하기
+
+(--- 서버컴포넌트 또는 클라이언트 컴포넌트로 구성해줄때 유의사항 정리 필요 ---)
 
 PostArtcle 컴포넌트에서 자식 프롭스로 children을 받아 화면에 표시해 주고 있다. </br>
 PostArtcle 컴포넌트는 클라이언트 컴포넌트이다.
