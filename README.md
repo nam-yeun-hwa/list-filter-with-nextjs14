@@ -106,12 +106,20 @@ app폴더 하위이 _component폴더를 사용하여 내부에 컴포넌트를 �
 현재 나의 라우터 위치를 알아낼 수 있는 훅을 next에서 지원해 준다.
 useSelectedLayoutSegment는 서브 컴포넌트가 아닌 클라이언트 컴포넌트에서 가능 하다.
 
+현재 라우더 주소가 "http://localhost:3000/categories/React/1" 이렇게 된다면 
+
 ```shell
 const segment = useSelectedLayoutSegment();
-console.log(segment) // 현재 활성화된 상위 라우터 주소
+console.log(segment);
+
+//현재 활성화된 상위 라우터 주소를 걷을 수 있다.
+//categories
 
 const segment = useSelectedLayoutSegments();
-console.log(segment) // 현재 활성화된 상위, 하위 라우터 주소 ['compose', 'tweet'];
+console.log(segment);
+
+// 현재 활성화된 상위, 하위 라우터 주소를 얻을 수 있다.
+//['categories', 'React', '1'];
 ```
 
 ### usePathname
