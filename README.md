@@ -92,9 +92,7 @@ export default function Default() {
   (beforeLogin) 폴더의 page.tsx의 링크 이동을 눌러 페이지가 지동할 경우에는 interceptor된 @modal/(..)i/flow/login/page.tsx으로 뜨고 직접 /i/flow/login/ 주소를 입력하거나 interceptor된 상태에서 새로고침을 하면 interceptor되지 않은 원 /i/flow/login/page.tsx 페이지가 화면에 보인다.
 
 ### private 폴더 _component 
-app폴더 하위 (beforeLogin)폴더 내부에 _component폴더를 사용하여 내부에 컴포넌트를 만들면 실제 주소에는 관여하지 않고 공통되는 페이지를 화면에 보여 줄수 있다. 
-@modal/(..)i/flow/login/page.tsx 와 i/flow/login/page.tsx는 결국 같은 내용을 화면에 렌더링 하는데 이럴때는 같은 (beforeLogin)을 두고 _component를 두어 각 페이지에서 하나의 컴포넌트를 import하여 사용하면 된다.
-결국 실제 라우터에 관여 하지 않는 폴더는 (폴더이름), _component 의 두가지 경우가 있다.
+app폴더 하위이 _component폴더를 사용하여 내부에 컴포넌트를 만들면 실제 주소에는 관여하지 않고 공통되는 페이지를 화면에 보여 줄수 있다. 
 
 ### 서버 컴포넌트에서는 useState, useEffect등을 사용할 수 없다. 
 
