@@ -101,11 +101,65 @@ app폴더 하위이 _component폴더를 사용하여 내부에 컴포넌트를 �
   - 클라이언트 컴포넌트로 변경하는 방법은 page.tsx나 layout.tsx 상단에 "use client"; 를 추가해 주면 된다. <br/>
 
 ### use client
-부모 컴포넌트에서 use client를 선언하고 있다면, 자식 컴포넌트에서 use client를 선언하지 않아도 클라이언트 컴포넌트로 인식된다.
-만약 부모컴포넌트에서 use client를 선언하고 자식컴포넌트에서도 use client를 선언할 경우 "Props must be serializable for components in the 'use client' entry file, 'setMessages' is invalid."라는 오류가 발생한다.
-use client를 선언한 파일에서 import된 컴포넌트는 클라이언트 컴포넌트로 인식된다.
-
+- 부모 컴포넌트에서 use client를 선언하고 있다면, 자식 컴포넌트에서 use client를 선언하지 않아도 클라이언트 컴포넌트로 인식된다. </br>
+- 만약 부모컴포넌트에서 use client를 선언하고 자식컴포넌트에서도 use client를 선언할 경우 "Props must be serializable for components in the 'use client' entry file, 'setMessages' is invalid."라는 오류가 발생한다.</br>
+- use client를 선언한 파일에서 import된 컴포넌트는 클라이언트 컴포넌트로 인식된다.</br>
+</br>
 관련된 이슈) https://github.com/vercel/next.js/discussions/46795
+</br></br>
+### 클라이언트 컴포넌트와 서버컴포넌트로 구성하기
+
+클라이언트 컴포넌트를 만들때 사용하는 use client 디렉티브는 해당 파일 내의 컴포넌트가 클라이언트 측에서만 실행된다는 것을 나타낸다.
+클라이언트 컴포넌트와 서버컴포넌트의 컴포넌트 간 통신에서 다룰 수 있는 데이터에 차이가 있으며 즉, props로 전달할 수 있는 데이터에 차이가 있다.
+</br>
+use client 디렉티브가 있는 경우, 해당 파일 내의 하위 컴포넌트의 속성은 직렬화 가능해야 하며 직렬화 가능한 데이터는 JSON으로 표현할 수 있는 데이터(객체, 배열, 문자열, 숫자, 불리언, null, undefined)를 가리킨다.
+</br>
+예를 들어, 객체나 배열은 JSON으로 다룰 수 있으므로, 직렬화된 데이터라고 할 수 있다.
+반면에, 함수는 객체로 다룰 수 있지만, JSON 객체로 표현할 수는 없기때문에 함수는 직렬화할 수 없는 데이터이다.
+</br>
+</br>
+### Suspense 컴포넌트
+Suspense는 React Component 내부에서 비동기적으로 다른 요소를 불러올 때 해당 요소가 불러와질 때까지 Component의 렌더링을 잠시 멈추는 용도로 사용할 수 있는 컴포넌트이다.
+
+<img width="650" alt="스크린샷 2024-01-05 오후 5 48 06" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/9d06f3f8-5452-4596-a4e9-7353db70d1b0">
+
+Suspense를 사용해서 컴포넌트 내부에서 비동기적 데이터가 불러와지는 중에는 Suspense의 fallback Prop을 통해 loading.tsx 컴포넌트를 화면에 보여준다.
+
+**suspense 컴포넌트 사용시 장점** </br>
+서버에서 로딩이 필요한 부분과 로딩이 필요하지 않은 부분을 나누어 로딩이 필요하지 않은 부분만 클라이언트로 보내주고 로딩이 필요한 경우에는 로딩 후 클라이언트로 보내주는 스트리밍 방식으로 여러번 클라이언트로 보내줄 수 있다.
+로딩이 필요한 부분만 서스펜스 컴포넌트로 감싸주는 식으로 분리 하여 사용 할 수 있다.
+
+**세가지 로딩 시점 구분**
+
+- page가 로딩 될때의 로딩 컴포넌트
+- suspense가 로딩 될때의 로딩
+- reace-query에서 api를 호출할때의 로딩
+
+상위를 Suspense 컴포넌트로 감싸주고 자식 컴포넌트에서 useSuspenseQuery 또는 useSuspenseInfinityQuery를 사용하면 상위 Suspense 컴포넌트의 fallback의 loading ui를 사용 할 수 있다.
+
+
+### errorBoundary 컴포넌트(서버컴포넌트의 에러에 대응)
+
+errorBoundary 하위 컴포넌트 트리의 어디에서든 자바스크립트 에러를 기록하며 깨진 컴포넌트 트리 대신 폴백 UI를 보여주는 React 컴포넌트이다.
+Error Boundary는 React Component 내부에서 에러가 발생한 경우 사용자에게 잘못된 UI나 빈 화면을 보여주는 대신 미리 정의해 둔 Fallback UI를 화면에 보여주기 위한 컴포넌트이다.
+
+폴더 경로에 error.tsx를 만들어 주고 errorBoundary 컴포넌트의 fallback 컴포넌트를 연결해 준다.
+<img width="653" alt="스크린샷 2024-01-05 오후 5 50 48" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/2273dde5-c195-4368-a375-87152dd51072">
+<img width="652" alt="스크린샷 2024-01-05 오후 5 58 54" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b54dd14a-cd8a-43c2-91d7-2d470ea79d02">
+
+### suspense와 errorBoundary 컴포넌트를 함께 사용시
+
+```shell
+const User = () => (
+  <ErrorBoundary FallbackComponent={UserProfileFallback}>
+    <Suspense fallback={<UserProfileLoading />}>
+      <UserProfile />
+    </Suspense>
+  </ErrorBoundary>
+);
+
+export default User;
+```
   
 # 여러가지 Hook
 
@@ -301,156 +355,7 @@ URLSearchParams는 URL 쿼리 문자열을 다루는 데 유용한 인터페이�
 
 이렇게하면 주어진 URL의 쿼리 문자열을 다룰 수 있습니다.
 
-### 클라이언트 컴포넌트와 서버컴포넌트로 구성하기
 
-(--- 서버컴포넌트 또는 클라이언트 컴포넌트로 구성해줄때 유의사항 정리 필요 ---)
-
-PostArtcle 컴포넌트에서 자식 프롭스로 children을 받아 화면에 표시해 주고 있다. </br>
-PostArtcle 컴포넌트는 클라이언트 컴포넌트이다.
-
-만약 서버 컴포넌트를 import하여 사용할 경우 서버컴포넌트가 클라이언트 컴포넌트 성격이 변경 된다.
-
-- 부모컴포넌트
-  
-```shell
-"use client";
-
-import {ReactNode} from "react";
-import style from './post.module.css';
-import {useRouter} from "next/navigation";
-
-type Props = {
-  children: ReactNode,
-  post: {
-    postId: number;
-    content: string,
-    User: {
-      id: string,
-      nickname: string,
-      image: string,
-    },
-    createdAt: Date,
-    Images: any[],
-  }
-}
-
-export default function PostArticle({ children, post}: Props) {
-  const router = useRouter();
-  const onClick = () => {
-    router.push(`/${post.User.id}/status/${post.postId}`);
-  }
-
-  return (
-    <article onClickCapture={onClick} className={style.post}>
-      {children}
-    </article>
-  );
-}
-```
-
-- 자식컴포넌트
-  
-```shell
-
-type Props = {
-  noImage?: boolean
-}
-export default function Post({ noImage }: Props) {
-  const target = {
-    postId: 1,
-    User: {
-      id: 'elonmusk',
-      nickname: 'Elon Musk',
-      image: '/yRsRRjGO.jpg',
-    },
-    content: '클론코딩 라이브로 하니 너무 힘들어요 ㅠㅠ',
-    createdAt: new Date(),
-    Images: [] as any[],
-  }
-  if (Math.random() > 0.5 && !noImage) {
-    target.Images.push(
-      {imageId: 1, link: faker.image.urlLoremFlickr()},
-      {imageId: 2, link: faker.image.urlLoremFlickr()},
-      {imageId: 3, link: faker.image.urlLoremFlickr()},
-      {imageId: 4, link: faker.image.urlLoremFlickr()},
-    )
-  }
-
-  return (
-    <PostArticle post={target}>
-      <div className={style.postWrapper}>
-        <div className={style.postUserSection}>
-          <Link href={`/${target.User.id}`} className={style.postUserImage}>
-            <img src={target.User.image} alt={target.User.nickname}/>
-            <div className={style.postShade}/>
-          </Link>
-        </div>
-        <div className={style.postBody}>
-          <div className={style.postMeta}>
-            <Link href={`/${target.User.id}`}>
-              <span className={style.postUserName}>{target.User.nickname}</span>
-              &nbsp;
-              <span className={style.postUserId}>@{target.User.id}</span>
-              &nbsp;
-              ·
-              &nbsp;
-            </Link>
-            <span className={style.postDate}>{dayjs(target.createdAt).fromNow(true)}</span>
-          </div>
-          <div>{target.content}</div>
-          <div>
-            <PostImages post={target} />
-          </div>
-          <ActionButtons/>
-        </div>
-      </div>
-    </PostArticle>
-  )
-}
-```
-
-### Suspense 컴포넌트
-Suspense는 React Component 내부에서 비동기적으로 다른 요소를 불러올 때 해당 요소가 불러와질 때까지 Component의 렌더링을 잠시 멈추는 용도로 사용할 수 있는 컴포넌트이다.
-
-<img width="650" alt="스크린샷 2024-01-05 오후 5 48 06" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/9d06f3f8-5452-4596-a4e9-7353db70d1b0">
-
-Suspense를 사용해서 컴포넌트 내부에서 비동기적 데이터가 불러와지는 중에는 Suspense의 fallback Prop을 통해 loading.tsx 컴포넌트를 화면에 보여준다.
-
-**suspense 컴포넌트 사용시 장점** </br>
-서버에서 로딩이 필요한 부분과 로딩이 필요하지 않은 부분을 나누어 로딩이 필요하지 않은 부분만 클라이언트로 보내주고 로딩이 필요한 경우에는 로딩 후 클라이언트로 보내주는 스트리밍 방식으로 여러번 클라이언트로 보내줄 수 있다.
-로딩이 필요한 부분만 서스펜스 컴포넌트로 감싸주는 식으로 분리 하여 사용 할 수 있다.
-
-**세가지 로딩 시점 구분**
-
-- page가 로딩 될때의 로딩 컴포넌트
-- suspense가 로딩 될때의 로딩
-- reace-query에서 api를 호출할때의 로딩
-
-상위를 Suspense 컴포넌트로 감싸주고 자식 컴포넌트에서 useSuspenseQuery 또는 useSuspenseInfinityQuery를 사용하면 상위 Suspense 컴포넌트의 fallback의 loading ui를 사용 할 수 있다.
-
-
-### errorBoundary 컴포넌트(서버컴포넌트의 에러에 대응)
-
-errorBoundary 하위 컴포넌트 트리의 어디에서든 자바스크립트 에러를 기록하며 깨진 컴포넌트 트리 대신 폴백 UI를 보여주는 React 컴포넌트이다.
-Error Boundary는 React Component 내부에서 에러가 발생한 경우 사용자에게 잘못된 UI나 빈 화면을 보여주는 대신 미리 정의해 둔 Fallback UI를 화면에 보여주기 위한 컴포넌트이다.
-
-폴더 경로에 error.tsx를 만들어 주고 errorBoundary 컴포넌트의 fallback 컴포넌트를 연결해 준다.
-<img width="653" alt="스크린샷 2024-01-05 오후 5 50 48" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/2273dde5-c195-4368-a375-87152dd51072">
-<img width="652" alt="스크린샷 2024-01-05 오후 5 58 54" src="https://github.com/nam-yeun-hwa/list-filter-with-nextjs14/assets/138950568/b54dd14a-cd8a-43c2-91d7-2d470ea79d02">
-
-### suspense와 errorBoundary 컴포넌트를 함께 사용시
-
-```shell
-const User = () => (
-  <ErrorBoundary FallbackComponent={UserProfileFallback}>
-    <Suspense fallback={<UserProfileLoading />}>
-      <UserProfile />
-    </Suspense>
-  </ErrorBoundary>
-);
-
-export default User;
-```
 
 ### 구글 폰트 사용
 
