@@ -105,7 +105,7 @@ app폴더 하위이 _component폴더를 사용하여 내부에 컴포넌트를 �
 만약 부모컴포넌트에서 use client를 선언하고 자식컴포넌트에서도 use client를 선언할 경우 "Props must be serializable for components in the 'use client' entry file, 'setMessages' is invalid."라는 오류가 발생한다.
 use client를 선언한 파일에서 import된 컴포넌트는 클라이언트 컴포넌트로 인식된다.
 
-
+관련된 이슈) https://github.com/vercel/next.js/discussions/46795
   
 # 여러가지 Hook
 
