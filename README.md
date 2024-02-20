@@ -7,6 +7,7 @@
 Next.js 앱의 컴포넌트와 페이지에 대해 생각하는 방식에 큰 패러다임 변화를 가져왔습니다. 
 Next.js 13 버전 이후부터는 Using App Router와 Using Pages Router을 제공 합니다.
 기존버전의 경우는 Pages Router를 사용했다면 13버전 이후로 새롭게 App Router가 추가 되었습니다.
+**Next.js 앱 라우터를 사용하면 모든 컴포넌트가 기본적으로 서버 컴포넌트입니다. 이것은 서버 근처에 위치하고 서버 생태계에 액세스할 수 있음을 의미합니다.**
 
 ### App Router 뭔가요? </br>
 App 디렉터리는 Next.js에서 라우트를 처리하고 뷰를 렌더링하기 위한 새로운 전략입니다. 
@@ -26,6 +27,44 @@ App Router는 페이지 및 라우팅 로직을 통합하여 페이지 간 이�
   - 서버 액션
 
 # Next.js 14 버전에서 추가된 기능 설명
+
+### 데이터베이스 연결을 직접 하여 데이터를 직접 쿼리
+일반적인 Next.js 컴포넌트지만 특별한 기능이 있다. 컴포넌트에서 데이터베이스 연결을 직접 하여 어떤 state와 effect 관리를 하지 않고도 데이터를 직접 쿼리할 수 있게 되었다.
+서버 컴포넌트이기 때문에 로그는 서버 콘솔에서 확인할 수 있다. (아마도 yarn dev 명령을 사용하여 서버를 시작한 터미널에서).
+데이터베이스와의 상호 작용은 비동기적 이므로, 호출 시 await 키워드를 사용하고 컴포넌트에는 async 키워드를 사용한다. 응답을 받으면 이를 자식 컴포넌트에 props로 전달해준다.
+
+```
+import { dbConnect } from '@/services/mongo'
+import { courses } from '@/models/courseModel'
+import { addCourseToDB } from './actions/add-course'
+
+import AddCourse from './components/AddCourse'
+import CourseList from './components/CourseList'
+
+export default async function Home() {
+
+  // MongoDB 연결
+  await dbConnect();
+  
+  // 모델을 이용하여 db로 부터 모든 강의를 가져옴.
+  const allCourses = await courses.find().select(
+  						["name", "cover", "rating"]);
+  
+  // 서버 콘솔에서 모든 출력값 표시
+  console.log({allCourses})
+
+  return (
+    <main>
+      <div>
+        <h1>Courses</h1> 
+        <AddCourse addCourseToDB={addCourseToDB} />
+        <CourseList allCourses={allCourses} />  
+      </div>
+    </main>
+  )
+}
+```
+출처 : https://youtu.be/5DZvdoMogys
 
 ### Routing Group
   - 상태에 따른 폴더 이름으로 카테고리(레이아웃) 나누기용 
@@ -109,7 +148,11 @@ app폴더 하위이 _component폴더를 사용하여 내부에 컴포넌트를 �
 </br>
 
 ### 클라이언트 컴포넌트와 서버컴포넌트로 구성하기
-
+1. 컴포넌트 계층 구조의 루트에 서버 컴포넌트를 두고 컴포넌트 트리의 말단으로 클라이언트 컴포넌트를 밀어 넣는 것이 좋다.
+2. 서버 컴포넌트는 클라이언트 컴포넌트를 가져와 렌더링할 수 있지만, **클라이언트 컴포넌트는 내부에서 서버 컴포넌트를 렌더링할 수 없다.** 클라이언트 컴포넌트에서 서버 컴포넌트를 사용하려면 props로 전달하여 사용할 수 있다.
+3. 컴포넌트 계층 구조의 **루트에 서버 컴포넌트**를 두고 컴포넌트 **트리의 말단으로 클라이언트 컴포넌트**를 밀어 넣는 것이 좋다.
+서버 컴포넌트의 최상단에서 데이터 페칭이 일어날 수 있으며, React가 허용하는 방식대로 전달할 수 있다. 사용자 상호 작용(이벤트 핸들러) 및 브라우저 API에 액세스는 말단의 클라이언트 컴포넌트에서 처리할 수 있다.
+  
 - 클라이언트 컴포넌트를 만들때 사용하는 use client 디렉티브는 해당 파일 내의 컴포넌트가 클라이언트 측에서만 실행된다는 것을 나타낸다.
 - 클라이언트 컴포넌트와 서버컴포넌트의 컴포넌트 간 통신에서 다룰 수 있는 데이터에 차이가 있으며 즉, props로 전달할 수 있는 데이터에 차이가 있다.
 - use client 디렉티브가 있는 경우, 해당 파일 내의 하위 컴포넌트의 속성은 직렬화 가능해야 하며 직렬화 가능한 데이터는 JSON으로 표현할 수 있는 데이터(객체, 배열, 문자열, 숫자, 불리언, null, undefined)를 가리킨다.
